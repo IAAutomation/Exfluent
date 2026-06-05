@@ -1,0 +1,2857 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Exfluent - The Operating System for AI Productivity</title>
+    <link rel="icon" type="image/png" href="ChatGPT%20Image%20Jun%202,%202026,%2011_36_33%20AM.png">
+
+    <!-- Tailwind CSS with plugins -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@500&amp;display=swap"
+        rel="stylesheet">
+
+    <!-- Combined Tailwind Configuration -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-fixed": "#AAFF00",
+                        "primary-fixed-dim": "#91db00",
+                        "waste": "#FF4D6A",
+                        "background": "#080808",
+                        "surface": "#111111",
+                        "surface-variant": "#1a1a1a",
+                        "on-surface": "#ffffff",
+                        "on-surface-variant": "#888888",
+                        "border-color": "#222222",
+                        "dashboard-bg": "#0F0F0F",
+                        "dashboard-border": "#1F1F1F",
+                        "tile-bg": "#161616",
+                        "tile-border": "#222222",
+                        "lime": "#AAFF00",
+                        "magenta": "#FF2D78",
+                        "purple": "#A855F7",
+                        "tertiary": "#ffffff",
+                        "error-container": "#93000a",
+                        "on-error": "#690005",
+                        "tertiary-fixed-dim": "#ffb871",
+                        "surface-tint": "#91db00",
+                        "secondary-fixed-dim": "#ffb2b7",
+                        "on-secondary": "#67001c",
+                        "on-tertiary-fixed-variant": "#6a3c00",
+                        "surface-container-high": "#2a2a2a",
+                        "on-primary": "#213600",
+                        "secondary-fixed": "#ffdadb",
+                        "inverse-primary": "#436900",
+                        "on-primary-container": "#486f00",
+                        "on-tertiary-container": "#945500",
+                        "secondary-container": "#ac0034",
+                        "primary-container": "#a6fa00",
+                        "error": "#ffb4ab",
+                        "inverse-surface": "#e5e2e1",
+                        "surface-container": "#201f1f",
+                        "primary": "#ffffff",
+                        "on-background": "#e5e2e1",
+                        "surface-container-highest": "#353534",
+                        "on-secondary-fixed": "#40000e",
+                        "on-tertiary-fixed": "#2d1600",
+                        "surface-container-low": "#1c1b1b",
+                        "on-primary-fixed": "#111f00",
+                        "tertiary-fixed": "#ffdcbe",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-lowest": "#0e0e0e",
+                        "outline": "#8b947a",
+                        "tertiary-container": "#ffdcbe",
+                        "inverse-on-surface": "#313030",
+                        "on-secondary-container": "#ffb7bb",
+                        "outline-variant": "#1F1F1F",
+                        "on-primary-fixed-variant": "#324f00",
+                        "secondary": "#ffb2b7",
+                        "surface-dim": "#131313",
+                        "on-tertiary": "#4a2800",
+                        "exfluent-bg": "#080808",
+                        "exfluent-surface": "#111111",
+                        "exfluent-border": "#1F1F1F",
+                        "exfluent-lime": "#AAFF00",
+                        "exfluent-purple": "#A855F7",
+                        "exfluent-pink": "#FF2D78"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1.5rem",
+                        "3xl": "2.5rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "base": "8px",
+                        "section-gap": "80px",
+                        "container-max": "1200px",
+                        "gutter": "24px",
+                        "margin-mobile": "16px"
+                    },
+                    fontFamily: {
+                        "sans": ["Inter", "sans-serif"],
+                        "mono": ["monospace"],
+                        "mono-data": ["JetBrains Mono", "monospace"],
+                        "sub-headline": ["Inter"],
+                        "h1-mobile": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "body": ["Inter"],
+                        "h1": ["Inter"],
+                        "h2": ["Inter"]
+                    },
+                    fontSize: {
+                        "mono-data": ["14px", { "lineHeight": "1", "fontWeight": "500" }],
+                        "sub-headline": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "h1-mobile": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "900" }],
+                        "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                        "body": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "h1": ["72px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "900" }],
+                        "h2": ["40px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "900" }]
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px)"
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Combined Custom Styles -->
+    <style>
+        html {
+            scroll-behavior: auto !important;
+            overscroll-behavior: none;
+        }
+
+        /* Offset spacing for anchors under fixed navbar */
+        section[id],
+        main[id] {
+            scroll-margin-top: 100px;
+        }
+
+        #smooth-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        #smooth-content {
+            width: 100%;
+            overflow: visible;
+            position: relative;
+            will-change: transform;
+        }
+
+        body {
+            background-color: #080808;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        .bg-glow-grid {
+            background-image:
+                radial-gradient(circle at 50% 40%, rgba(170, 255, 0, 0.12) 0%, transparent 60%),
+                radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 100% 100%, 24px 24px;
+            background-position: center top;
+        }
+
+        .text-glow {
+            text-shadow: 0 0 30px rgba(170, 255, 0, 0.4);
+        }
+
+        .card-glow {
+            box-shadow: 0 0 40px rgba(170, 255, 0, 0.05);
+        }
+
+        /* Dashboard Animations */
+        @keyframes fadeUpIn {
+            from {
+                opacity: 0;
+                transform: translateY(28px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-up {
+            animation: fadeUpIn 0.8s ease-out forwards;
+        }
+
+        @keyframes pulseDot {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(170, 255, 0, 0.7);
+            }
+
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 6px rgba(170, 255, 0, 0);
+            }
+
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(170, 255, 0, 0);
+            }
+        }
+
+        .live-dot {
+            animation: pulseDot 2s infinite;
+        }
+
+        .donut-chart {
+            background: conic-gradient(#FF2D78 0% 50%,
+                    #A855F7 50% 70%,
+                    #AAFF00 70% 100%);
+            border-radius: 50%;
+        }
+
+        @keyframes drawPath {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .svg-path {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: drawPath 2s ease-out forwards;
+        }
+
+        .svg-path-observe.drawn {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: drawPath 2s ease-out forwards;
+            opacity: 1;
+        }
+
+        .observe-chart.drawn {
+            animation: fadeUpIn 1s ease-out forwards;
+            opacity: 1;
+        }
+
+        .in-view {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0%);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        .animate-marquee {
+            animation: marquee 35s linear infinite;
+        }
+
+        .roi-bar {
+            width: 0;
+            transition: width 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        /* Bento Grid */
+        .bento-card {
+            background-color: #111111;
+            border: 1px solid #1f1f1f;
+        }
+
+        .bg-grid {
+            background-size: 20px 20px;
+            background-position: center center;
+        }
+
+        .glass-card {
+            background: #111111;
+            border: 1px solid #1F1F1F;
+        }
+
+        .glow-lime {
+            box-shadow: 0 0 80px 20px rgba(170, 255, 0, 0.05);
+        }
+
+        .glow-purple {
+            box-shadow: 0 0 80px 20px rgba(168, 85, 247, 0.05);
+        }
+
+        /* Scroll Animations */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+        }
+
+        .is-visible {
+            animation: fadeUp 0.6s ease-out forwards;
+        }
+
+        .pulse-line {
+            stroke-dasharray: 4;
+            animation: dash 20s linear infinite;
+        }
+
+        @keyframes dash {
+            to {
+                stroke-dashoffset: -100;
+            }
+        }
+
+        /* Pricing Style */
+        .dot-grid {
+            background-image: radial-gradient(rgba(170, 255, 0, 0.05) 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow:
+                inset 0 1px 1px rgba(255, 255, 255, 0.1),
+                0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .glass-panel:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-8px);
+        }
+
+        .glass-panel.md\:-translate-y-4:hover {
+            transform: translateY(-24px);
+        }
+
+        .pro-glow {
+            position: relative;
+        }
+
+        .pro-glow::before {
+            content: '';
+            position: absolute;
+            inset: -20px;
+            background: radial-gradient(circle, rgba(170, 255, 0, 0.15) 0%, transparent 70%);
+            z-index: -1;
+            filter: blur(20px);
+            opacity: 0.8;
+        }
+
+        .pro-glow::after {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            background: linear-gradient(135deg, rgba(170, 255, 0, 0.4) 0%, transparent 40%, transparent 60%, rgba(170, 255, 0, 0.4) 100%);
+            border-radius: inherit;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .bg-text-massive {
+            font-size: clamp(80px, 20vw, 280px);
+            line-height: 0.8;
+            opacity: 0.05;
+            pointer-events: none;
+            user-select: none;
+            white-space: nowrap;
+        }
+
+        .refraction-edge {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        }
+
+        .reveal-card {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Testimonials Styles */
+        .reveal-item {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-item.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .glass-card {
+            background: rgba(25, 25, 25, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow:
+                0 25px 50px -12px rgba(0, 0, 0, 0.5),
+                inset 1px 1px 0px 0px rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow:
+                0 40px 80px -20px rgba(0, 0, 0, 0.7),
+                inset 1px 1px 0px 0px rgba(255, 255, 255, 0.2);
+        }
+
+        .glass-metric {
+            background: rgba(30, 30, 30, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 20px 20px 60px rgba(0, 0, 0, 0.4);
+            transition: all 0.5s ease;
+        }
+
+        .glass-metric:hover {
+            transform: translateY(-12px);
+            background: rgba(40, 40, 40, 0.5);
+        }
+
+        .ambient-radial-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(166, 250, 0, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .radial-glow {
+            background: radial-gradient(50% 50% at 50% 0%, rgba(166, 250, 0, 0.05) 0%, rgba(8, 8, 8, 0) 100%);
+        }
+
+        /* FAQ accordion */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 200px;
+            opacity: 1;
+            padding-bottom: 24px;
+        }
+
+        .accordion-item.active .icon-rotate {
+            transform: rotate(45deg);
+            color: #a6fa00;
+        }
+
+        .accordion-item.active .question-text {
+            color: #a6fa00;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        /* Footer banner hover */
+        .cta-hover:hover .arrow-icon {
+            transform: translateX(4px);
+        }
+
+        .arrow-icon {
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .geometric-overlay {
+            mask-image: linear-gradient(to left, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+            opacity: 0.15;
+            pointer-events: none;
+            user-select: none;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background text-on-surface antialiased min-h-screen flex flex-col bg-glow-grid selection:bg-primary-fixed selection:text-on-primary-fixed">
+    <!-- Vertical guide lines -->
+    <div
+        class="fixed inset-y-0 left-1/2 -translate-x-[600px] w-px bg-white/[0.05] pointer-events-none z-30 hidden lg:block">
+    </div>
+    <div
+        class="fixed inset-y-0 left-1/2 translate-x-[600px] w-px bg-white/[0.05] pointer-events-none z-30 hidden lg:block">
+    </div>
+    <div class="fixed inset-y-0 left-1/2 w-px bg-white/[0.02] pointer-events-none z-30 hidden lg:block"></div>
+
+    <!-- SVG Icon definitions -->
+    <svg class="inline-defs-container" aria-hidden="true"
+        style="position:absolute;width:0;height:0;overflow:hidden"></svg>
+
+    <!-- Ambient Background Glows -->
+    <div
+        class="fixed top-0 left-0 w-[50vw] h-[50vw] bg-exfluent-lime/5 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2 pointer-events-none z-0">
+    </div>
+    <div
+        class="fixed bottom-0 right-0 w-[50vw] h-[50vw] bg-exfluent-purple/5 rounded-full blur-[120px] translate-x-1/2 translate-y-1/2 pointer-events-none z-0">
+    </div>
+    <div class="ambient-radial-glow top-[10%] left-[-10%] opacity-40"></div>
+    <div class="ambient-radial-glow bottom-[20%] right-[-10%] opacity-30"
+        style="background: radial-gradient(circle, rgba(168, 85, 247, 0.05) 0%, transparent 70%);"></div>
+
+    <!-- 1. Top Navigation -->
+    <div class="fixed top-6 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
+        <nav
+            class="pointer-events-auto max-w-[850px] w-full bg-[#111111]/70 backdrop-blur-xl border border-white/10 rounded-full px-6 py-3 flex items-center justify-between shadow-2xl">
+            <a href="#hero"
+                class="flex items-center gap-3 text-white font-bold text-base tracking-tight pointer-events-auto cursor-pointer hover:opacity-80 transition-opacity">
+                <img alt="Exfluent Logo" class="w-6 h-6 rounded-md"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSn66e7Z7-WblGQQfJ39Ib0ptCIvZ7nTuSxSpalq9f-lYq9nsMU5uzTtRy4a1TCyl7czO_J2F5cNN4fRD6NiG04V5LUFYFzj-gmAE4dqVHNIrdCLB9h5HLlO0lJ5kSqoEUYomXDnO7lV3Fcdv2kMdh-jm29erFqy-5Fn-4Vl6LH1cuCc5GAZ9DQeG7e_y5o-WA_3QJ9BpyrQQXp-8Zi6Ba_vkdmrMbta_D2AB-sRdyAcbzwDA9vZtkrVAMPngX2h-fwDEkICRO99e0">
+                <span class="text-sm font-semibold tracking-wide">Exfluent</span>
+            </a>
+            <div class="hidden md:flex items-center gap-6">
+                <a class="text-on-surface-variant/80 text-[11px] font-medium hover:text-white transition-colors uppercase tracking-wider"
+                    href="#problem">Problem</a>
+                <a class="text-on-surface-variant/80 text-[11px] font-medium hover:text-white transition-colors uppercase tracking-wider"
+                    href="#how-it-works">How It Works</a>
+                <a class="text-on-surface-variant/80 text-[11px] font-medium hover:text-white transition-colors uppercase tracking-wider"
+                    href="#capabilities">Capabilities</a>
+                <a class="text-on-surface-variant/80 text-[11px] font-medium hover:text-white transition-colors uppercase tracking-wider"
+                    href="#pricing">Pricing</a>
+                <a class="text-on-surface-variant/80 text-[11px] font-medium hover:text-white transition-colors uppercase tracking-wider"
+                    href="#faq">FAQs</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <a class="text-white text-[11px] font-semibold hover:text-primary-fixed transition-colors uppercase tracking-wider"
+                    href="#">Sign In</a>
+                <a class="bg-primary-fixed text-black text-[10px] font-bold px-4 py-2 rounded-full hover:bg-white transition-colors uppercase tracking-wider"
+                    href="#">Start For Free</a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Smooth Scroll Wrapper -->
+    <div id="smooth-wrapper">
+        <div id="smooth-content">
+
+            <!-- 1. Hero Section -->
+            <main id="hero"
+                class="flex-grow flex flex-col items-center justify-center pt-20 pb-32 px-4 max-w-[1000px] mx-auto w-full relative z-10 scroll-margin-top-[120px]">
+                <!-- Badge -->
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border-color bg-surface/50 backdrop-blur-sm mb-8">
+                    <span class="text-primary-fixed text-xs font-semibold flex items-center gap-1.5">
+                        <span class="material-symbols-outlined text-[14px]">bolt</span>
+                        AI Subscription Intelligence
+                    </span>
+                </div>
+                <!-- Headline -->
+                <h1 data-speed="0.85"
+                    class="text-[56px] md:text-[88px] font-bold text-center leading-[1.05] tracking-tighter mb-8 bg-gradient-to-b from-white to-gray-400 bg-clip-text text-transparent drop-shadow-sm">
+                    The Operating System for AI Productivity
+                </h1>
+                <!-- Sub-headline -->
+                <p data-lag="0.15"
+                    class="text-lg md:text-xl text-on-surface-variant text-center max-w-[640px] mb-10 leading-relaxed font-medium">
+                    Exfluent tracks every AI subscription, kills the overlap, calculates your real ROI, and tells you
+                    exactly
+                    what to cut — so you stop bleeding $100/month you'll never get back.
+                </p>
+                <!-- CTA -->
+                <div class="flex flex-col items-center gap-4 mb-20">
+                    <button
+                        class="bg-primary-fixed text-black font-bold text-[16px] h-[52px] pl-1.5 pr-6 rounded-full hover:bg-white hover:scale-105 transition-all duration-300 flex items-center justify-center gap-3"
+                        id="hero-cta">
+                        <div class="w-10 h-10 rounded-full bg-black flex items-center justify-center overflow-hidden">
+                            <img alt="Exfluent" class="w-full h-full object-cover opacity-90"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSn66e7Z7-WblGQQfJ39Ib0ptCIvZ7nTuSxSpalq9f-lYq9nsMU5uzTtRy4a1TCyl7czO_J2F5cNN4fRD6NiG04V5LUFYFzj-gmAE4dqVHNIrdCLB9h5HLlO0lJ5kSqoEUYomXDnO7lV3Fcdv2kMdh-jm29erFqy-5Fn-4Vl6LH1cuCc5GAZ9DQeG7e_y5o-WA_3QJ9BpyrQQXp-8Zi6Ba_vkdmrMbta_D2AB-sRdyAcbzwDA9vZtkrVAMPngX2h-fwDEkICRO99e0">
+                        </div>
+                        <span id="cta-text" class="">Try Exfluent For Free</span>
+                        <span class="material-symbols-outlined text-[20px] font-bold">arrow_forward</span>
+                    </button>
+                    <span class="text-on-surface-variant text-xs font-medium uppercase tracking-wider">No credit card
+                        Needed.
+                        See your waste in 60 seconds.</span>
+                </div>
+
+                <!-- Horizontal Divider line -->
+                <div class="w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mb-16"></div>
+
+                <!-- NEW AI STACK DASHBOARD -->
+                <div data-speed="0.95"
+                    class="w-full bg-[#0a0a0a]/80 backdrop-blur-2xl border border-white/5 rounded-[32px] p-8 shadow-2xl animate-fade-up opacity-0 relative overflow-hidden"
+                    style="animation-delay: 0.2s; box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 0 1px 0 0 rgba(170,255,0,0.3);">
+                    <div
+                        class="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-primary-fixed/5 to-transparent pointer-events-none -z-10">
+                    </div>
+                    <!-- Header -->
+                    <div class="flex items-center justify-between mb-8">
+                        <div class="flex items-center gap-3">
+                            <h2 class="text-[11px] uppercase tracking-[2px] font-bold text-white">Exfluen Dashboard</h2>
+                            <div
+                                class="flex items-center gap-2 bg-lime/10 border border-lime/20 px-2 py-0.5 rounded-full">
+                                <div class="w-1.5 h-1.5 rounded-full bg-lime live-dot"></div>
+                                <span class="text-[9px] font-bold text-lime tracking-wider">LIVE</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Top Row: Metric Tiles -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                        <!-- Monthly Spend -->
+                        <div
+                            class="bg-white/[0.02] border border-white/[0.05] shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] rounded-2xl p-5 flex flex-col relative overflow-hidden">
+                            <span
+                                class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider mb-2">Monthly
+                                Spend</span>
+                            <div class="flex items-end gap-2 mb-1">
+                                <span class="text-3xl font-mono font-bold text-magenta">$<span class="counter"
+                                        data-target="193">193</span></span>
+                            </div>
+                            <span class="text-xs text-on-surface-variant font-medium">+$34 vs last month</span>
+                        </div>
+                        <!-- Wasted Spend -->
+                        <div
+                            class="bg-white/[0.02] border border-white/[0.05] shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] rounded-2xl p-5 flex flex-col relative overflow-hidden">
+                            <span
+                                class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider mb-2">Wasted
+                                Spend</span>
+                            <div class="flex items-end gap-2 mb-1">
+                                <span class="text-3xl font-mono font-bold text-purple">$<span class="counter"
+                                        data-target="96">96</span></span>
+                            </div>
+                            <span class="text-xs text-on-surface-variant font-medium">49% of total</span>
+                        </div>
+                        <!-- Savings Found -->
+                        <div
+                            class="bg-white/[0.02] border border-white/[0.05] shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] rounded-2xl p-5 flex flex-col relative overflow-hidden">
+                            <span
+                                class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider mb-2">Savings
+                                Found</span>
+                            <div class="flex items-end gap-2 mb-1">
+                                <span class="text-3xl font-mono font-bold text-lime">$<span class="counter"
+                                        data-target="104">104</span></span>
+                            </div>
+                            <span class="text-xs text-on-surface-variant font-medium">Ready to unlock</span>
+                        </div>
+                    </div>
+                    <!-- Middle Row: Charts -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <!-- Left: Donut Chart -->
+                        <div
+                            class="bg-white/[0.02] border border-white/[0.05] shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] rounded-2xl p-6 flex flex-col items-center justify-center relative min-h-[240px]">
+                            <div class="w-32 h-32 donut-chart relative flex items-center justify-center mb-6">
+                                <!-- Hole -->
+                                <div
+                                    class="w-24 h-24 bg-[#0a0a0a] rounded-full flex items-center justify-center absolute z-10">
+                                    <span class="text-xl font-mono font-bold text-white">$<span class="counter"
+                                            data-target="193">193</span></span>
+                                </div>
+                            </div>
+                            <!-- Legend -->
+                            <div class="flex gap-4 text-xs font-medium text-on-surface-variant w-full justify-center">
+                                <div class="flex items-center gap-1.5">
+                                    <div class="w-2 h-2 rounded-full bg-magenta"></div>Waste
+                                </div>
+                                <div class="flex items-center gap-1.5">
+                                    <div class="w-2 h-2 rounded-full bg-purple"></div>Review
+                                </div>
+                                <div class="flex items-center gap-1.5">
+                                    <div class="w-2 h-2 rounded-full bg-lime"></div>Optimized
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Right: Trend Line -->
+                        <div
+                            class="bg-white/[0.02] border border-white/[0.05] shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] rounded-2xl p-6 flex flex-col relative min-h-[240px]">
+                            <span
+                                class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider mb-4">Spend
+                                Trend</span>
+                            <div class="flex-grow w-full relative">
+                                <svg class="w-full h-full overflow-visible" preserveAspectRatio="none"
+                                    viewBox="0 0 400 150">
+                                    <defs>
+                                        <linearGradient id="areaGradient" x1="0" x2="0" y1="0" y2="1">
+                                            <stop offset="0%" stop-color="#AAFF00" stop-opacity="0.2"></stop>
+                                            <stop offset="100%" stop-color="#AAFF00" stop-opacity="0"></stop>
+                                        </linearGradient>
+                                    </defs>
+                                    <!-- Trend Area -->
+                                    <path class="opacity-0"
+                                        d="M 0 100 L 80 70 L 160 120 L 240 40 L 320 85 L 400 120 L 400 150 L 0 150 Z"
+                                        fill="url(#areaGradient)" style="animation: fadeUpIn 1s ease-out 1s forwards;">
+                                    </path>
+                                    <!-- Trend Line -->
+                                    <path class="svg-path" d="M 0 100 L 80 70 L 160 120 L 240 40 L 320 85 L 400 120"
+                                        fill="none" stroke="#AAFF00" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="3"></path>
+                                    <!-- Points -->
+                                    <g class="opacity-0" style="animation: fadeUpIn 1s ease-out 1.2s forwards;">
+                                        <circle class="hover:r-6 hover:fill-lime transition-all cursor-pointer" cx="0"
+                                            cy="100" fill="#0F0F0F" r="4" stroke="#AAFF00" stroke-width="2"></circle>
+                                        <circle class="hover:r-6 hover:fill-lime transition-all cursor-pointer" cx="80"
+                                            cy="70" fill="#0F0F0F" r="4" stroke="#AAFF00" stroke-width="2"></circle>
+                                        <circle class="hover:r-6 hover:fill-lime transition-all cursor-pointer" cx="160"
+                                            cy="120" fill="#0F0F0F" r="4" stroke="#AAFF00" stroke-width="2"></circle>
+                                        <circle class="hover:r-6 hover:fill-lime transition-all cursor-pointer" cx="240"
+                                            cy="40" fill="#0F0F0F" r="4" stroke="#AAFF00" stroke-width="2"></circle>
+                                        <circle class="hover:r-6 hover:fill-lime transition-all cursor-pointer" cx="320"
+                                            cy="85" fill="#0F0F0F" r="4" stroke="#AAFF00" stroke-width="2"></circle>
+                                        <circle class="hover:r-6 hover:fill-lime transition-all cursor-pointer" cx="400"
+                                            cy="120" fill="#0F0F0F" r="4" stroke="#AAFF00" stroke-width="2"></circle>
+                                    </g>
+                                </svg>
+                                <div
+                                    class="absolute bottom-0 left-0 w-full flex justify-between text-[10px] text-on-surface-variant font-mono mt-2 -mb-4">
+                                    <span class="">Jan</span><span class="">Feb</span><span class="">Mar</span><span
+                                        class="">Apr</span><span class="">May</span><span class="">Jun</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Bottom Row: ROI Table -->
+                    <div
+                        class="bg-white/[0.02] border border-white/[0.05] shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] rounded-2xl overflow-hidden mb-6">
+                        <table class="w-full text-left">
+                            <thead>
+                                <tr
+                                    class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold border-b border-white/[0.05]">
+                                    <th class="px-5 py-4">Tool</th>
+                                    <th class="px-5 py-4">Spend</th>
+                                    <th class="px-5 py-4 w-1/2">ROI Score</th>
+                                    <th class="px-5 py-4 text-right">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-sm font-medium">
+                                <tr class="border-b border-white/[0.05] hover:bg-white/5 transition-colors">
+                                    <td class="px-5 py-3 flex items-center gap-2">
+                                        <img class="w-5 h-5 object-contain" src="github%20copilot.png"
+                                            alt="GitHub Copilot">
+                                        <span>GitHub Copilot</span>
+                                    </td>
+                                    <td class="px-5 py-3 font-mono text-lime">$19/mo</td>
+                                    <td class="px-5 py-3">
+                                        <div class="w-full h-1.5 bg-black/40 rounded-full overflow-hidden">
+                                            <div class="h-full bg-lime roi-bar" data-width="92%" style="width: 92%;">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-5 py-3 text-right"><span
+                                            class="text-[10px] font-bold text-lime bg-lime/10 px-2 py-1 rounded">TOP
+                                            PERFORMER</span></td>
+                                </tr>
+                                <tr class="border-b border-white/[0.05] hover:bg-white/5 transition-colors">
+                                    <td class="px-5 py-3 flex items-center gap-2">
+                                        <img class="w-5 h-5 object-contain" src="chatgpt-6.png" alt="ChatGPT">
+                                        <span>ChatGPT Plus</span>
+                                    </td>
+                                    <td class="px-5 py-3 font-mono text-lime">$20/mo</td>
+                                    <td class="px-5 py-3">
+                                        <div class="w-full h-1.5 bg-black/40 rounded-full overflow-hidden">
+                                            <div class="h-full bg-lime roi-bar" data-width="74%" style="width: 74%;">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-5 py-3 text-right"><span
+                                            class="text-[10px] font-bold text-lime bg-lime/10 px-2 py-1 rounded">OPTIMIZED</span>
+                                    </td>
+                                </tr>
+                                <tr class="border-b border-white/[0.05] hover:bg-white/5 transition-colors">
+                                    <td class="px-5 py-3 flex items-center gap-2">
+                                        <img class="w-5 h-5 object-contain" src="claude-logo.png" alt="Claude">
+                                        <span>Claude Pro</span>
+                                    </td>
+                                    <td class="px-5 py-3 font-mono text-purple">$20/mo</td>
+                                    <td class="px-5 py-3">
+                                        <div class="w-full h-1.5 bg-black/40 rounded-full overflow-hidden">
+                                            <div class="h-full bg-purple roi-bar" data-width="58%" style="width: 58%;">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-5 py-3 text-right"><span
+                                            class="text-[10px] font-bold text-purple bg-purple/10 px-2 py-1 rounded">REVIEW</span>
+                                    </td>
+                                </tr>
+                                <tr class="border-b border-white/[0.05] hover:bg-white/5 transition-colors">
+                                    <td class="px-5 py-3 flex items-center gap-2">
+                                        <img class="w-5 h-5 object-contain" src="jasper%20ai.png" alt="Jasper AI">
+                                        <span>Jasper AI</span>
+                                    </td>
+                                    <td class="px-5 py-3 font-mono text-magenta">$49/mo</td>
+                                    <td class="px-5 py-3">
+                                        <div class="w-full h-1.5 bg-black/40 rounded-full overflow-hidden">
+                                            <div class="h-full bg-magenta roi-bar" data-width="8%" style="width: 8%;">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-5 py-3 text-right"><span
+                                            class="text-[10px] font-bold text-magenta bg-magenta/10 px-2 py-1 rounded">CANCEL</span>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-white/5 transition-colors">
+                                    <td class="px-5 py-3 flex items-center gap-2">
+                                        <span
+                                            class="material-symbols-outlined text-[20px] text-on-surface-variant w-5 h-5 flex items-center justify-center">movie</span>
+                                        <span>Runway ML</span>
+                                    </td>
+                                    <td class="px-5 py-3 font-mono text-magenta">$35/mo</td>
+                                    <td class="px-5 py-3">
+                                        <div class="w-full h-1.5 bg-black/40 rounded-full overflow-hidden">
+                                            <div class="h-full bg-magenta roi-bar" data-width="0%" style="width: 0%;">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-5 py-3 text-right"><span
+                                            class="text-[10px] font-bold text-magenta bg-magenta/10 px-2 py-1 rounded">IDLE</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Alert Strip -->
+                    <div
+                        class="w-full rounded-xl bg-lime/[0.04] border border-lime/10 p-4 flex items-center justify-between">
+                        <span class="text-sm font-semibold text-lime">⚡Exfluent found 3 issues...</span>
+                        <button
+                            class="text-xs font-bold text-black bg-lime px-4 py-2 rounded-lg hover:bg-white transition-colors">FIX
+                            NOW</button>
+                    </div>
+                </div>
+            </main>
+
+            <!-- Floating Logos Section -->
+            <section
+                class="w-full border-y border-white/5 bg-black/20 backdrop-blur-sm z-10 flex flex-col md:flex-row items-stretch">
+                <!-- Left Side Title Cell -->
+                <div
+                    class="w-full md:w-[30%] px-8 py-6 flex items-center border-b md:border-b-0 md:border-r border-white/5 shrink-0">
+                    <span
+                        class="text-[10px] font-bold uppercase tracking-[0.2em] text-exfluent-lime flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-exfluent-lime animate-pulse"></span>
+                        Integrates with your stack
+                    </span>
+                </div>
+                <!-- Right Side Logo Ribbon Cell -->
+                <div class="flex-grow overflow-hidden relative flex items-center select-none py-0">
+                    <div
+                        class="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-[#080808]/80 to-transparent z-20 pointer-events-none">
+                    </div>
+                    <div
+                        class="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-[#080808]/80 to-transparent z-20 pointer-events-none">
+                    </div>
+
+                    <div class="flex gap-0 relative w-full overflow-hidden">
+                        <div class="flex items-center min-w-full animate-marquee shrink-0">
+                            <!-- ChatGPT -->
+                            <div
+                                class="flex items-center gap-3 px-12 py-5 border-r border-white/5 text-on-surface-variant/60 hover:text-white transition-colors duration-300">
+                                <img class="w-5 h-5 object-contain filter brightness-75 hover:brightness-100"
+                                    src="chatgpt-6.png" alt="ChatGPT">
+                                <span class="font-mono text-[11px] font-semibold tracking-wider">ChatGPT</span>
+                            </div>
+                            <!-- Claude -->
+                            <div
+                                class="flex items-center gap-3 px-12 py-5 border-r border-white/5 text-on-surface-variant/60 hover:text-white transition-colors duration-300">
+                                <img class="w-5 h-5 object-contain filter brightness-75 hover:brightness-100"
+                                    src="claude-logo.png" alt="Claude">
+                                <span class="font-mono text-[11px] font-semibold tracking-wider">Claude</span>
+                            </div>
+                            <!-- Gemini -->
+                            <div
+                                class="flex items-center gap-3 px-12 py-5 border-r border-white/5 text-on-surface-variant/60 hover:text-white transition-colors duration-300">
+                                <img class="w-5 h-5 object-contain filter brightness-75 hover:brightness-100"
+                                    src="gemini-icon-logo.png" alt="Gemini">
+                                <span class="font-mono text-[11px] font-semibold tracking-wider">Gemini</span>
+                            </div>
+                            <!-- Copilot -->
+                            <div
+                                class="flex items-center gap-3 px-12 py-5 border-r border-white/5 text-on-surface-variant/60 hover:text-white transition-colors duration-300">
+                                <img class="w-5 h-5 object-contain filter brightness-75 hover:brightness-100"
+                                    src="github%20copilot.png" alt="Copilot">
+                                <span class="font-mono text-[11px] font-semibold tracking-wider">Copilot</span>
+                            </div>
+                            <!-- Midjourney -->
+                            <div
+                                class="flex items-center gap-3 px-12 py-5 border-r border-white/5 text-on-surface-variant/60 hover:text-white transition-colors duration-300">
+                                <img class="w-5 h-5 object-contain filter brightness-75 hover:brightness-100"
+                                    src="midjourney.png" alt="Midjourney">
+                                <span class="font-mono text-[11px] font-semibold tracking-wider">Midjourney</span>
+                            </div>
+                            <!-- Notion -->
+                            <div
+                                class="flex items-center gap-3 px-12 py-5 border-r border-white/5 text-on-surface-variant/60 hover:text-white transition-colors duration-300">
+                                <img class="w-5 h-5 object-contain filter brightness-75 hover:brightness-100"
+                                    src="notion%20ai.png" alt="Notion">
+                                <span class="font-mono text-[11px] font-semibold tracking-wider">Notion AI</span>
+                            </div>
+                            <!-- Figma -->
+                            <div
+                                class="flex items-center gap-3 px-12 py-5 border-r border-white/5 text-on-surface-variant/60 hover:text-white transition-colors duration-300">
+                                <img class="w-5 h-5 object-contain filter brightness-75 hover:brightness-100"
+                                    src="figma.png" alt="Figma">
+                                <span class="font-mono text-[11px] font-semibold tracking-wider">Figma</span>
+                            </div>
+                            <!-- Perplexity -->
+                            <div
+                                class="flex items-center gap-3 px-12 py-5 border-r border-white/5 text-on-surface-variant/60 hover:text-white transition-colors duration-300">
+                                <img class="w-5 h-5 object-contain filter brightness-75 hover:brightness-100"
+                                    src="perplexity.png" alt="Perplexity">
+                                <span class="font-mono text-[11px] font-semibold tracking-wider">Perplexity</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center min-w-full animate-marquee shrink-0" aria-hidden="true">
+                            <!-- ChatGPT -->
+                            <div
+                                class="flex items-center gap-3 px-12 py-5 border-r border-white/5 text-on-surface-variant/60 hover:text-white transition-colors duration-300">
+                                <img class="w-5 h-5 object-contain filter brightness-75 hover:brightness-100"
+                                    src="chatgpt-6.png" alt="ChatGPT">
+                                <span class="font-mono text-[11px] font-semibold tracking-wider">ChatGPT</span>
+                            </div>
+                            <!-- Claude -->
+                            <div
+                                class="flex items-center gap-3 px-12 py-5 border-r border-white/5 text-on-surface-variant/60 hover:text-white transition-colors duration-300">
+                                <img class="w-5 h-5 object-contain filter brightness-75 hover:brightness-100"
+                                    src="claude-logo.png" alt="Claude">
+                                <span class="font-mono text-[11px] font-semibold tracking-wider">Claude</span>
+                            </div>
+                            <!-- Gemini -->
+                            <div
+                                class="flex items-center gap-3 px-12 py-5 border-r border-white/5 text-on-surface-variant/60 hover:text-white transition-colors duration-300">
+                                <img class="w-5 h-5 object-contain filter brightness-75 hover:brightness-100"
+                                    src="gemini-icon-logo.png" alt="Gemini">
+                                <span class="font-mono text-[11px] font-semibold tracking-wider">Gemini</span>
+                            </div>
+                            <!-- Copilot -->
+                            <div
+                                class="flex items-center gap-3 px-12 py-5 border-r border-white/5 text-on-surface-variant/60 hover:text-white transition-colors duration-300">
+                                <img class="w-5 h-5 object-contain filter brightness-75 hover:brightness-100"
+                                    src="github%20copilot.png" alt="Copilot">
+                                <span class="font-mono text-[11px] font-semibold tracking-wider">Copilot</span>
+                            </div>
+                            <!-- Midjourney -->
+                            <div
+                                class="flex items-center gap-3 px-12 py-5 border-r border-white/5 text-on-surface-variant/60 hover:text-white transition-colors duration-300">
+                                <img class="w-5 h-5 object-contain filter brightness-75 hover:brightness-100"
+                                    src="midjourney.png" alt="Midjourney">
+                                <span class="font-mono text-[11px] font-semibold tracking-wider">Midjourney</span>
+                            </div>
+                            <!-- Notion -->
+                            <div
+                                class="flex items-center gap-3 px-12 py-5 border-r border-white/5 text-on-surface-variant/60 hover:text-white transition-colors duration-300">
+                                <img class="w-5 h-5 object-contain filter brightness-75 hover:brightness-100"
+                                    src="notion%20ai.png" alt="Notion">
+                                <span class="font-mono text-[11px] font-semibold tracking-wider">Notion AI</span>
+                            </div>
+                            <!-- Figma -->
+                            <div
+                                class="flex items-center gap-3 px-12 py-5 border-r border-white/5 text-on-surface-variant/60 hover:text-white transition-colors duration-300">
+                                <img class="w-5 h-5 object-contain filter brightness-75 hover:brightness-100"
+                                    src="figma.png" alt="Figma">
+                                <span class="font-mono text-[11px] font-semibold tracking-wider">Figma</span>
+                            </div>
+                            <!-- Perplexity -->
+                            <div
+                                class="flex items-center gap-3 px-12 py-5 border-r border-white/5 text-on-surface-variant/60 hover:text-white transition-colors duration-300">
+                                <img class="w-5 h-5 object-contain filter brightness-75 hover:brightness-100"
+                                    src="perplexity.png" alt="Perplexity">
+                                <span class="font-mono text-[11px] font-semibold tracking-wider">Perplexity</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- 1. PROBLEM SECTION -->
+            <section id="problem"
+                class="w-full bg-[#080808] py-[140px] relative overflow-hidden flex flex-col items-center border-b border-white/5">
+                <!-- Orbs -->
+                <div
+                    class="absolute top-0 left-0 w-[500px] h-[500px] bg-magenta/[0.04] rounded-full blur-[120px] pointer-events-none -translate-x-1/2 -translate-y-1/2">
+                </div>
+                <div
+                    class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-purple/[0.04] rounded-full blur-[120px] pointer-events-none translate-x-1/2 translate-y-1/2">
+                </div>
+                <!-- Headline -->
+                <div class="flex flex-col items-center text-center z-10 mb-16 px-4">
+                    <div
+                        class="px-3 py-1 border border-magenta/20 bg-magenta/10 rounded-full text-[10px] uppercase font-bold text-magenta tracking-widest mb-6">
+                        The Problem</div>
+                    <h2 class="text-[62px] font-black leading-tight tracking-tight mb-6">
+                        <span class="text-white">Every second you wait,</span><br>
+                        <span class="text-magenta" style="text-shadow: rgba(255, 45, 120, 0.4) 0px 0px 50px;">you're
+                            bleeding
+                            money.</span>
+                    </h2>
+                    <p class="text-[17px] text-[#666666] max-w-[540px] font-medium leading-relaxed">
+                        The average developer pays for 6 AI tools. Uses 2. Wastes $1,200/year...
+                    </p>
+                </div>
+                <!-- Panel -->
+                <div class="w-full max-w-[1000px] mx-auto bg-[#0A0A0A] border border-[#1E1E1E] rounded-[24px] relative z-10 flex flex-col md:flex-row overflow-hidden pb-0 mb-8 observe-fade-up opacity-0 translate-y-8 transition-all duration-1000 in-view"
+                    id="problem-panel">
+                    <!-- Left Panel: Without Exfluent -->
+                    <div class="flex-1 p-8 bg-magenta/[0.02] relative flex flex-col">
+                        <div class="text-[10px] uppercase font-bold text-magenta tracking-widest mb-6">Without Exfluent
+                        </div>
+                        <div class="text-xs text-on-surface-variant uppercase font-semibold mb-2">Live Bleeding</div>
+                        <div class="text-[52px] font-black text-magenta leading-none mb-8 font-mono">$<span
+                                id="bleed-counter" class="">623.7990</span></div>
+                        <!-- Chaos Tool Grid -->
+                        <div class="grid grid-cols-3 gap-4 mb-12">
+                            <div
+                                class="bg-[#161616] border border-[#222222] p-4 rounded-xl transform rotate-[-3deg] relative flex items-center justify-center">
+                                <img class="w-10 h-10 object-contain" src="chatgpt-6.png" alt="ChatGPT">
+                                <div
+                                    class="absolute -top-2 -right-2 bg-magenta text-white text-[8px] font-bold px-1.5 py-0.5 rounded">
+                                    WASTE</div>
+                            </div>
+                            <div
+                                class="bg-[#161616] border border-[#222222] p-4 rounded-xl transform rotate-[4deg] relative flex items-center justify-center">
+                                <img class="w-10 h-10 object-contain" src="claude-logo.png" alt="Claude">
+                                <div
+                                    class="absolute -top-2 -right-2 bg-magenta text-white text-[8px] font-bold px-1.5 py-0.5 rounded">
+                                    WASTE</div>
+                            </div>
+                            <div
+                                class="bg-[#161616] border border-[#222222] p-4 rounded-xl transform rotate-[-5deg] relative flex items-center justify-center">
+                                <img class="w-10 h-10 object-contain" src="jasper%20ai.png" alt="Jasper AI">
+                                <div
+                                    class="absolute -top-2 -right-2 bg-magenta text-white text-[8px] font-bold px-1.5 py-0.5 rounded">
+                                    WASTE</div>
+                            </div>
+                            <div
+                                class="bg-[#161616] border border-[#222222] p-4 rounded-xl transform rotate-[2deg] relative flex items-center justify-center">
+                                <img class="w-10 h-10 object-contain" src="midjourney.png" alt="Midjourney">
+                                <div
+                                    class="absolute -top-2 -right-2 bg-magenta text-white text-[8px] font-bold px-1.5 py-0.5 rounded">
+                                    WASTE</div>
+                            </div>
+                            <div
+                                class="bg-[#161616] border border-[#222222] p-4 rounded-xl transform rotate-[-4deg] relative flex items-center justify-center">
+                                <img class="w-10 h-10 object-contain" src="perplexity.png" alt="Perplexity">
+                                <div
+                                    class="absolute -top-2 -right-2 bg-magenta text-white text-[8px] font-bold px-1.5 py-0.5 rounded">
+                                    WASTE</div>
+                            </div>
+                            <div
+                                class="bg-[#161616] border border-[#222222] p-4 rounded-xl transform rotate-[5deg] relative flex items-center justify-center">
+                                <img class="w-10 h-10 object-contain" src="gemini-icon-logo.png" alt="Gemini">
+                                <div
+                                    class="absolute -top-2 -right-2 bg-magenta text-white text-[8px] font-bold px-1.5 py-0.5 rounded">
+                                    WASTE</div>
+                            </div>
+                        </div>
+                        <!-- Bleeding SVG Chart -->
+                        <div class="mt-auto relative h-24 w-full">
+                            <svg class="w-full h-full overflow-visible" preserveAspectRatio="none"
+                                viewBox="0 0 400 100">
+                                <defs>
+                                    <linearGradient id="bleedGradient" x1="0" x2="0" y1="0" y2="1">
+                                        <stop offset="0%" stop-color="#FF2D78" stop-opacity="0.2"></stop>
+                                        <stop offset="100%" stop-color="#FF2D78" stop-opacity="0"></stop>
+                                    </linearGradient>
+                                </defs>
+                                <path class="observe-chart opacity-0 drawn"
+                                    d="M 0 100 L 80 80 L 160 85 L 240 50 L 320 60 L 400 20 L 400 100 Z"
+                                    fill="url(#bleedGradient)"></path>
+                                <path class="svg-path-observe opacity-0 drawn"
+                                    d="M 0 100 L 80 80 L 160 85 L 240 50 L 320 60 L 400 20" fill="none" stroke="#FF2D78"
+                                    stroke-width="2"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <!-- Divider -->
+                    <div
+                        class="hidden md:flex w-px bg-gradient-to-b from-magenta to-lime relative items-center justify-center">
+                        <div
+                            class="absolute bg-black border border-[#1E1E1E] px-2 py-1 rounded text-[10px] uppercase font-bold text-lime tracking-wider z-10 rotate-90 whitespace-nowrap">
+                            EXFLUENT</div>
+                    </div>
+                    <!-- Right Panel: With Exfluent -->
+                    <div class="flex-1 p-8 bg-lime/[0.015] relative flex flex-col">
+                        <div class="text-[10px] uppercase font-bold text-lime tracking-widest mb-6">With Exfluent</div>
+                        <div class="text-xs text-on-surface-variant uppercase font-semibold mb-2">Savings Locked</div>
+                        <div class="text-[52px] font-black text-lime leading-none mb-8 font-mono">$<span
+                                id="save-counter" class="">104.00</span></div>
+                        <!-- Clean Tool Grid -->
+                        <div class="grid grid-cols-3 gap-4 mb-12">
+                            <div
+                                class="bg-[#161616] border border-[#222222] p-4 rounded-xl relative flex items-center justify-center">
+                                <img class="w-10 h-10 object-contain" src="chatgpt-6.png" alt="ChatGPT">
+                                <div
+                                    class="absolute -top-2 -right-2 bg-lime/20 text-lime text-[8px] font-bold px-1.5 py-0.5 rounded">
+                                    KEEP</div>
+                            </div>
+                            <div
+                                class="bg-[#161616] border border-[#222222] p-4 rounded-xl relative flex items-center justify-center">
+                                <img class="w-10 h-10 object-contain" src="claude-logo.png" alt="Claude">
+                                <div
+                                    class="absolute -top-2 -right-2 bg-lime/20 text-lime text-[8px] font-bold px-1.5 py-0.5 rounded">
+                                    KEEP</div>
+                            </div>
+                            <div
+                                class="bg-[#161616] border border-[#222222] p-4 rounded-xl relative opacity-30 flex items-center justify-center">
+                                <img class="w-10 h-10 object-contain" src="jasper%20ai.png" alt="Jasper AI">
+                                <div
+                                    class="absolute -top-2 -right-2 bg-white/20 text-white text-[8px] font-bold px-1.5 py-0.5 rounded">
+                                    CANCELLED</div>
+                            </div>
+                            <div
+                                class="bg-[#161616] border border-[#222222] p-4 rounded-xl relative flex items-center justify-center">
+                                <img class="w-10 h-10 object-contain" src="midjourney.png" alt="Midjourney">
+                                <div
+                                    class="absolute -top-2 -right-2 bg-purple/20 text-purple text-[8px] font-bold px-1.5 py-0.5 rounded">
+                                    PAUSED</div>
+                            </div>
+                            <div
+                                class="bg-[#161616] border border-[#222222] p-4 rounded-xl relative opacity-30 flex items-center justify-center">
+                                <img class="w-10 h-10 object-contain" src="perplexity.png" alt="Perplexity">
+                                <div
+                                    class="absolute -top-2 -right-2 bg-white/20 text-white text-[8px] font-bold px-1.5 py-0.5 rounded">
+                                    CANCELLED</div>
+                            </div>
+                            <div
+                                class="bg-[#161616] border border-[#222222] p-4 rounded-xl relative flex items-center justify-center">
+                                <img class="w-10 h-10 object-contain" src="gemini-icon-logo.png" alt="Gemini">
+                                <div
+                                    class="absolute -top-2 -right-2 bg-lime/20 text-lime text-[8px] font-bold px-1.5 py-0.5 rounded">
+                                    KEEP</div>
+                            </div>
+                        </div>
+                        <!-- Controlled SVG Chart -->
+                        <div class="mt-auto relative h-24 w-full">
+                            <svg class="w-full h-full overflow-visible" preserveAspectRatio="none"
+                                viewBox="0 0 400 100">
+                                <defs>
+                                    <linearGradient id="saveGradient" x1="0" x2="0" y1="0" y2="1">
+                                        <stop offset="0%" stop-color="#AAFF00" stop-opacity="0.2"></stop>
+                                        <stop offset="100%" stop-color="#AAFF00" stop-opacity="0"></stop>
+                                    </linearGradient>
+                                </defs>
+                                <path class="observe-chart opacity-0 drawn"
+                                    d="M 0 20 L 80 40 L 160 30 L 240 60 L 320 80 L 400 90 L 400 100 L 0 100 Z"
+                                    fill="url(#saveGradient)"></path>
+                                <path class="svg-path-observe opacity-0 drawn"
+                                    d="M 0 20 L 80 40 L 160 30 L 240 60 L 320 80 L 400 90" fill="none" stroke="#AAFF00"
+                                    stroke-width="2"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <!-- Urgency Strip -->
+                <div
+                    class="w-full max-w-[1000px] mx-auto bg-gradient-to-r from-magenta/[0.06] to-purple/[0.06] border border-[#1E1E1E] rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between z-10 observe-fade-up opacity-0 translate-y-8 transition-all duration-1000 delay-200 mb-12 in-view">
+                    <div class="text-white font-medium text-sm mb-4 md:mb-0">
+                        Right now, someone just like you wasted <span class="text-magenta font-bold">$3.80</span>...
+                    </div>
+                    <button
+                        class="bg-lime text-black font-bold px-6 py-3 rounded-full shadow-[0_0_20px_rgba(170,255,0,0.4)] hover:bg-white hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] transition-all">
+                        Fix My Stack Now →
+                    </button>
+                </div>
+                <!-- Transition -->
+                <div
+                    class="flex flex-col items-center z-10 observe-fade-up opacity-0 translate-y-8 transition-all duration-1000 delay-300 in-view">
+                    <span class="text-white text-sm font-medium mb-4">Here's how Exfluent fixes this in 60
+                        seconds.</span>
+                    <span class="material-symbols-outlined text-lime animate-bounce">arrow_downward</span>
+                </div>
+            </section>
+
+            <!-- 2. How It Works Section -->
+            <main id="how-it-works"
+                class="flex-grow pt-32 pb-section-gap px-margin-mobile md:px-gutter max-w-container-max mx-auto w-full border-b border-white/5">
+                <div class="text-center mb-16">
+                    <h1 class="font-h1 text-h1-mobile md:text-h1 mb-4 tracking-tighter"
+                        style="color: #AAFF00; text-shadow: 0 0 20px rgba(170,255,0,0.2); font-weight: 900; letter-spacing: -0.05em;">
+                        How It Works</h1>
+                    <p
+                        class="font-sub-headline text-sub-headline max-w-2xl mx-auto bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-500 font-medium">
+                        Absolute visibility into your operational stack. Zero abstractions. Complete control.</p>
+                </div>
+                <div class="flex flex-col items-center gap-8 relative z-10">
+                    <!-- Step 1 -->
+                    <div class="w-full flex flex-col items-center gap-8">
+                        <div
+                            class="w-12 h-12 rounded-full bg-[#111] text-primary-fixed flex items-center justify-center font-mono-data font-bold border border-[#1f1f1f] text-xl shadow-[0_0_15px_rgba(166,250,0,0.2)]">
+                            1</div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter w-full">
+                            <!-- Left: Text -->
+                            <div class="bento-card flex flex-col justify-center p-8 md:p-12">
+                                <h2 class="font-h2 text-h2 text-white mb-4"
+                                    style="font-weight: 900; letter-spacing: -0.05em;">
+                                    1. Connect your stack.</h2>
+                                <p class="font-body text-body text-gray-400 mb-8">Sign up with Google and Exfluent will
+                                    automatically detect all your current AI tool subscriptions, shadowed deployments,
+                                    and
+                                    hidden costs across your entire domain.</p>
+                            </div>
+                            <!-- Right: Visual -->
+                            <div class="bento-card flex flex-col p-8 md:p-12 relative overflow-hidden bg-[#0a0a0a]">
+                                <div class="absolute inset-0 bg-gradient-to-br from-[#111] to-[#080808] opacity-50 z-0">
+                                </div>
+                                <div
+                                    class="relative z-10 w-full h-full flex flex-col items-center justify-center space-y-6">
+                                    <div
+                                        class="w-full max-w-sm bg-[#111] border border-[#1f1f1f] p-4 flex items-center space-x-3">
+                                        <span class="material-symbols-outlined text-on-surface-variant">mail</span>
+                                        <input
+                                            class="bg-transparent border-none text-white font-mono-data text-mono-data w-full focus:ring-0"
+                                            readonly="" type="text" value="exfluent.site">
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-4 w-full max-w-xs">
+                                        <div
+                                            class="bg-[#111] border border-[#1f1f1f] aspect-square flex items-center justify-center">
+                                            <img class="w-12 h-12 object-contain" src="chatgpt-6.png" alt="ChatGPT">
+                                        </div>
+                                        <div
+                                            class="bg-[#111] border border-[#1f1f1f] aspect-square flex items-center justify-center">
+                                            <img class="w-12 h-12 object-contain" src="claude-logo.png" alt="Claude">
+                                        </div>
+                                        <div
+                                            class="bg-[#111] border border-[#1f1f1f] aspect-square flex items-center justify-center">
+                                            <img class="w-12 h-12 object-contain" src="gemini-icon-logo.png"
+                                                alt="Gemini">
+                                        </div>
+                                        <div
+                                            class="bg-[#111] border border-[#1f1f1f] aspect-square flex items-center justify-center">
+                                            <img class="w-12 h-12 object-contain" src="github%20copilot.png"
+                                                alt="GitHub Copilot">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Arrow -->
+                    <div class="flex flex-col items-center opacity-70">
+                        <div class="h-16 w-px bg-gradient-to-b from-[#1f1f1f] to-primary-fixed/50"></div>
+                        <span class="material-symbols-outlined text-primary-fixed/50 mt-2">arrow_downward</span>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="w-full flex flex-col items-center gap-8">
+                        <div
+                            class="w-12 h-12 rounded-full bg-[#111] text-primary-fixed flex items-center justify-center font-mono-data font-bold border border-[#1f1f1f] text-xl shadow-[0_0_15px_rgba(166,250,0,0.2)]">
+                            2</div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter w-full">
+                            <div class="bento-card flex flex-col p-8 md:p-12 relative overflow-hidden bg-[#0a0a0a]">
+                                <div class="relative z-10 w-full h-full flex flex-col justify-between">
+                                    <div class="grid grid-cols-3 gap-4 mb-8">
+                                        <div>
+                                            <div class="font-label-caps text-label-caps text-gray-500 mb-1">TOTAL SPEND
+                                            </div>
+                                            <div class="font-mono-data text-mono-data text-white text-xl">$124/mo</div>
+                                        </div>
+                                        <div>
+                                            <div class="font-label-caps text-label-caps text-error mb-1">WASTE
+                                                IDENTIFIED</div>
+                                            <div class="font-mono-data text-mono-data text-error text-xl">$76</div>
+                                        </div>
+                                        <div>
+                                            <div class="font-label-caps text-label-caps text-primary-fixed mb-1">
+                                                POTENTIAL
+                                                SAVINGS</div>
+                                            <div class="font-mono-data text-mono-data text-primary-fixed text-xl">$76
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="w-full h-32 border-b border-l border-[#1f1f1f] relative flex items-end">
+                                        <svg class="w-full h-full absolute inset-0" preserveAspectRatio="none"
+                                            viewBox="0 0 100 100">
+                                            <path d="M0 80 L20 60 L40 70 L60 30 L80 40 L100 10" fill="none"
+                                                stroke="#a6fa00" stroke-width="2" vector-effect="non-scaling-stroke">
+                                            </path>
+                                            <path d="M0 80 L20 60 L40 70 L60 30 L80 40 L100 10 L100 100 L0 100 Z"
+                                                fill="url(#grad)" stroke="none" vector-effect="non-scaling-stroke">
+                                            </path>
+                                            <defs>
+                                                <linearGradient id="grad" x1="0" x2="0" y1="0" y2="1">
+                                                    <stop offset="0%" stop-color="#a6fa00" stop-opacity="0.2"></stop>
+                                                    <stop offset="100%" stop-color="#a6fa00" stop-opacity="0"></stop>
+                                                </linearGradient>
+                                            </defs>
+                                        </svg></div>
+                                </div>
+                            </div>
+                            <!-- Left: Text -->
+                            <div class="bento-card flex flex-col justify-center p-8 md:p-12">
+                                <h2 class="font-h2 text-h2 text-white mb-4"
+                                    style="font-weight: 900; letter-spacing: -0.05em;">
+                                    2. See where money goes.</h2>
+                                <p class="font-body text-body text-gray-400 mb-8">See exactly where your money goes. We
+                                    track
+                                    usage across all your AI tools to spot overlaps, idle subscriptions, and wasted
+                                    spend — so
+                                    you know what’s actually worth keeping.</p>
+                            </div>
+                            <!-- Right: Visual -->
+
+                        </div>
+                    </div>
+                    <!-- Arrow -->
+                    <div class="flex flex-col items-center opacity-70">
+                        <div class="h-16 w-px bg-gradient-to-b from-[#1f1f1f] to-primary-fixed/50"></div>
+                        <span class="material-symbols-outlined text-primary-fixed/50 mt-2">arrow_downward</span>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="w-full flex flex-col items-center gap-8">
+                        <div
+                            class="w-12 h-12 rounded-full bg-[#111] text-primary-fixed flex items-center justify-center font-mono-data font-bold border border-[#1f1f1f] text-xl shadow-[0_0_15px_rgba(166,250,0,0.2)]">
+                            3</div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter w-full">
+                            <!-- Left: Text -->
+                            <div class="bento-card flex flex-col justify-center p-8 md:p-12">
+                                <h2 class="font-h2 text-h2 text-white mb-4"
+                                    style="font-weight: 900; letter-spacing: -0.05em;">
+                                    3. Cut the waste.</h2>
+                                <p class="font-body text-body text-gray-400 mb-8">Cut the waste in one click. Cancel
+                                    unused
+                                    tools, downgrade overpowered plans, and lock in real savings instantly — no
+                                    spreadsheets or
+                                    manual tracking required.</p>
+                            </div>
+                            <!-- Right: Visual -->
+                            <div class="bento-card flex flex-col p-8 md:p-12 relative overflow-hidden bg-[#0a0a0a]">
+                                <div class="relative z-10 w-full h-full flex flex-col items-center justify-center">
+                                    <div class="text-center mb-8">
+                                        <div class="font-label-caps text-label-caps text-primary-fixed mb-2">EXECUTABLE
+                                            SAVINGS
+                                        </div>
+                                        <div class="font-h1 text-h1-mobile text-primary-fixed font-mono-data">$76/mo
+                                        </div>
+                                    </div>
+                                    <div class="w-full space-y-2">
+                                        <div
+                                            class="bg-[#111] border border-[#1f1f1f] p-4 flex justify-between items-center group hover:bg-[#1a1a1a] transition-colors cursor-pointer">
+                                            <div class="flex items-center space-x-4">
+                                                <span class="material-symbols-outlined text-error">close</span>
+                                                <img class="w-6 h-6 object-contain" src="jasper%20ai.png"
+                                                    alt="Jasper AI">
+                                                <span class="font-mono-data text-mono-data text-white">Jasper AI</span>
+                                            </div>
+                                            <div
+                                                class="font-label-caps text-label-caps text-error border border-error px-2 py-1">
+                                                CANCEL</div>
+                                        </div>
+                                        <div
+                                            class="bg-[#111] border border-[#1f1f1f] p-4 flex justify-between items-center group hover:bg-[#1a1a1a] transition-colors cursor-pointer">
+                                            <div class="flex items-center space-x-4">
+                                                <span
+                                                    class="material-symbols-outlined text-tertiary-fixed-dim">arrow_downward</span>
+                                                <img class="w-6 h-6 object-contain" src="chatgpt-6.png" alt="ChatGPT">
+                                                <span class="font-mono-data text-mono-data text-white">ChatGPT
+                                                    Team</span>
+                                            </div>
+                                            <div
+                                                class="font-label-caps text-label-caps text-tertiary-fixed-dim border border-tertiary-fixed-dim px-2 py-1">
+                                                DOWNGRADE</div>
+                                        </div>
+                                        <div
+                                            class="bg-[#111] border border-[#1f1f1f] p-4 flex justify-between items-center group hover:bg-[#1a1a1a] transition-colors cursor-pointer">
+                                            <div class="flex items-center space-x-4">
+                                                <span class="material-symbols-outlined text-gray-500">check</span>
+                                                <img class="w-6 h-6 object-contain" src="github%20copilot.png"
+                                                    alt="GitHub Copilot">
+                                                <span class="font-mono-data text-mono-data text-white">GitHub
+                                                    Copilot</span>
+                                            </div>
+                                            <div
+                                                class="font-label-caps text-label-caps text-gray-500 border border-[#333] px-2 py-1">
+                                                KEEP</div>
+                                        </div>
+                                        <div
+                                            class="bg-[#111] border border-[#1f1f1f] p-4 flex justify-between items-center group hover:bg-[#1a1a1a] transition-colors cursor-pointer">
+                                            <div class="flex items-center space-x-4">
+                                                <span class="material-symbols-outlined text-gray-500">check</span>
+                                                <img class="w-6 h-6 object-contain" src="claude-logo.png" alt="Claude">
+                                                <span class="font-mono-data text-mono-data text-white">Claude</span>
+                                            </div>
+                                            <div
+                                                class="font-label-caps text-label-caps text-gray-500 border border-[#333] px-2 py-1">
+                                                KEEP</div>
+                                        </div>
+                                        <div
+                                            class="bg-[#111] border border-[#1f1f1f] p-4 flex justify-between items-center group hover:bg-[#1a1a1a] transition-colors cursor-pointer">
+                                            <div class="flex items-center space-x-4">
+                                                <span class="material-symbols-outlined text-error">close</span>
+                                                <img class="w-6 h-6 object-contain" src="higgsfield.png"
+                                                    alt="Higgsfield">
+                                                <span class="font-mono-data text-mono-data text-white">Higgsfield</span>
+                                            </div>
+                                            <div
+                                                class="font-label-caps text-label-caps text-error border border-error px-2 py-1">
+                                                CANCEL</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <!-- 3. Capabilities Section -->
+            <main id="capabilities"
+                class="flex-grow pt-32 pb-section-gap relative z-10 bg-grid bg-grid-pattern border-b border-white/5">
+                <div class="max-w-container-max mx-auto px-margin-mobile md:px-gutter">
+                    <!-- Header Section -->
+                    <div class="text-center max-w-3xl mx-auto mb-16 animate-on-scroll is-visible">
+                        <div
+                            class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-exfluent-border bg-exfluent-surface mb-6">
+                            <span class="w-2 h-2 rounded-full bg-exfluent-lime animate-pulse"></span>
+                            <span
+                                class="font-mono-data text-mono-data text-on-surface-variant uppercase tracking-widest">Core
+                                Capabilities</span>
+                        </div>
+                        <h1 class="font-h1-mobile md:font-h1 text-h1-mobile md:text-h1 text-primary mb-6">Everything you
+                            need to
+                            <span class="text-exfluent-lime">control</span> your AI spend
+                        </h1>
+                        <p class="font-sub-headline text-sub-headline text-on-surface-variant">Stop bleeding capital on
+                            overlapping AI tools. Track, analyze, and optimize your entire stack in real-time with
+                            military
+                            precision.</p>
+                    </div>
+                    <!-- Bento Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 auto-rows-[minmax(200px,auto)]">
+                        <!-- Card 1: Live Spend Tracker (2x2) -->
+                        <div
+                            class="glass-card rounded-lg p-6 md:col-span-2 md:row-span-2 flex flex-col justify-between animate-on-scroll delay-100 group is-visible">
+                            <div>
+                                <h3 class="font-h2 text-h2 text-primary mb-2">Live Spend Tracker</h3>
+                                <p class="text-on-surface-variant font-body">Real-Time Telemetry and every ai tool
+                                    subscription
+                                </p>
+                            </div>
+                            <div class="mt-8 flex flex-col items-center justify-center relative">
+                                <div class="text-center glow-lime rounded-full p-8">
+                                    <span class="font-h1 text-h1 text-exfluent-lime block" id="live-counter"
+                                        data-target="11070" style="opacity: 0;">11070.12</span>
+                                    <span
+                                        class="font-mono-data text-mono-data text-on-surface-variant uppercase mt-2 block tracking-widest">Total
+                                        Yearly Burn</span>
+                                </div>
+                                <div class="grid grid-cols-3 gap-4 w-full mt-8 border-t border-exfluent-border pt-6">
+                                    <div class="text-center"><span
+                                            class="block text-on-surface-variant font-mono-data mb-1">Total AI
+                                            Cost</span><span class="font-h2 text-h2 text-primary">$193</span></div>
+                                    <div class="text-center border-l border-r border-exfluent-border"><span
+                                            class="block text-on-surface-variant font-mono-data mb-1">Optimized</span><span
+                                            class="font-h2 text-h2 text-exfluent-purple">$101</span></div>
+                                    <div class="text-center"><span
+                                            class="block text-on-surface-variant font-mono-data mb-1">Waste</span><span
+                                            class="font-h2 text-h2 text-primary">$92</span></div>
+                                </div>
+                            </div>
+                            <div
+                                class="mt-6 bg-exfluent-lime/10 border border-exfluent-lime/20 rounded p-3 flex items-center gap-3">
+                                <span class="material-symbols-outlined text-exfluent-lime"
+                                    data-icon="warning">warning</span>
+                                <span class="font-mono-data text-exfluent-lime">ALERT: Unusual spike in Anthropic API
+                                    usage
+                                    detected across Dev Team.</span>
+                            </div>
+                        </div>
+                        <!-- Card 2: Overlap Detector (1x2) -->
+                        <div
+                            class="glass-card rounded-lg p-6 md:col-span-1 md:row-span-2 flex flex-col justify-between animate-on-scroll delay-200 is-visible">
+                            <div>
+                                <h3 class="font-sub-headline text-sub-headline text-primary font-bold mb-1">Overlap
+                                    Detector
+                                </h3>
+                                <p class="text-on-surface-variant text-sm">Identify redundant tool capabilities
+                                    instantly.</p>
+                            </div>
+                            <div class="flex-grow flex flex-col justify-center items-center relative py-8">
+                                <div
+                                    class="w-full bg-[#1A1A1A] border border-exfluent-border rounded p-3 mb-2 z-10 relative text-center">
+                                    <span class="block font-bold text-primary text-sm">ChatGPT Plus</span>
+                                </div>
+                                <div
+                                    class="w-full bg-[#1A1A1A] border border-exfluent-border rounded p-3 mb-2 z-10 relative text-center">
+                                    <span class="block font-bold text-primary text-sm">Claude Pro</span>
+                                </div>
+                                <div class="absolute inset-0 flex items-center justify-center pointer-events-none"><svg
+                                        class="w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 200">
+                                        <line class="pulse-line" stroke="#FF2D78" stroke-width="2" x1="50" x2="50"
+                                            y1="20" y2="180"></line>
+                                    </svg>
+                                    <div
+                                        class="absolute bg-exfluent-surface border border-exfluent-pink text-exfluent-pink font-mono-data text-xs px-2 py-1 rounded-full uppercase z-20 shadow-[0_0_10px_rgba(255,45,120,0.3)]">
+                                        85% Overlap</div>
+                                </div>
+                                <div
+                                    class="w-full bg-[#1A1A1A] border border-exfluent-border rounded p-3 mb-2 z-10 relative text-center opacity-80">
+                                    <span class="block font-bold text-primary text-sm">Notion AI</span>
+                                </div>
+                                <div
+                                    class="w-full bg-[#1A1A1A] border border-exfluent-border rounded p-3 mb-2 z-10 relative text-center opacity-60">
+                                    <span class="block font-bold text-primary text-sm">Gemini Adv</span>
+                                </div>
+                                <div
+                                    class="w-full bg-[#1A1A1A] border border-exfluent-border rounded p-3 z-10 relative text-center opacity-40">
+                                    <span class="block font-bold text-primary text-sm">Jasper AI</span><span
+                                        class="block text-[10px] text-exfluent-pink mt-1 font-mono-data uppercase">Recommendation:
+                                        Cancel</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Card 3: ROI Calculator (1x1) -->
+                        <div
+                            class="glass-card rounded-lg p-6 md:col-span-1 md:row-span-1 animate-on-scroll delay-300 flex flex-col is-visible">
+                            <h3 class="font-sub-headline text-sub-headline text-primary font-bold mb-4">ROI Calculator
+                            </h3>
+                            <div class="space-y-3 flex-grow">
+                                <div class="flex items-center justify-between border-b border-exfluent-border pb-2">
+                                    <span class="text-sm text-on-surface-variant font-mono-data">Hourly Rate</span><span
+                                        class="font-mono-data text-primary">$10/hr</span></div>
+                                <div class="flex items-center justify-between border-b border-exfluent-border pb-2">
+                                    <span class="text-sm text-on-surface-variant font-mono-data">Time Saved</span><span
+                                        class="font-mono-data text-primary">20 hrs/mo</span></div>
+                                <div class="pt-4 text-center"><span
+                                        class="block text-xs text-on-surface-variant uppercase tracking-widest mb-1">Monthly
+                                        Value</span><span class="font-h2 text-h2 text-exfluent-lime"
+                                        id="roi-result">$1,000</span></div>
+                            </div>
+                        </div>
+                        <!-- Card 4: Browser Extension (1x1) -->
+                        <div
+                            class="glass-card rounded-lg p-6 md:col-span-1 md:row-span-1 animate-on-scroll delay-400 overflow-hidden relative group is-visible">
+                            <h3 class="font-sub-headline text-sub-headline text-primary font-bold mb-2 relative z-10">
+                                Extension
+                            </h3>
+                            <p class="text-xs text-on-surface-variant mb-4 relative z-10">Auto-detect shadows IT.</p>
+                            <div
+                                class="absolute right-0 bottom-0 translate-x-4 translate-y-4 group-hover:-translate-y-2 group-hover:-translate-x-2 transition-transform duration-500">
+                                <div
+                                    class="bg-exfluent-surface border border-exfluent-border p-3 rounded shadow-2xl transform -rotate-6 w-48">
+                                    <div class="flex items-center gap-2 border-b border-exfluent-border pb-2 mb-2">
+                                        <span class="material-symbols-outlined text-xs text-exfluent-lime"
+                                            data-icon="check_circle" data-weight="fill">check_circle</span>
+                                        <span class="text-xs text-primary font-mono-data">Midjourney Active</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="material-symbols-outlined text-xs text-exfluent-lime"
+                                            data-icon="check_circle" data-weight="fill">check_circle</span>
+                                        <span class="text-xs text-primary font-mono-data">Copilot Active</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Card 5: Team Dashboard (2x1) -->
+                        <div
+                            class="glass-card rounded-lg p-0 md:col-span-2 md:row-span-1 animate-on-scroll delay-500 overflow-hidden flex flex-col is-visible">
+                            <div class="p-6 pb-2">
+                                <h3 class="font-sub-headline text-sub-headline text-primary font-bold">Team Oversight
+                                </h3>
+                            </div>
+                            <div class="w-full flex-grow overflow-x-auto">
+                                <table class="w-full text-left border-collapse">
+                                    <thead>
+                                        <tr class="border-y border-exfluent-border bg-[#1A1A1A]">
+                                            <th
+                                                class="py-2 px-6 font-mono-data text-xs text-on-surface-variant uppercase tracking-wider">
+                                                User</th>
+                                            <th
+                                                class="py-2 px-6 font-mono-data text-xs text-on-surface-variant uppercase tracking-wider">
+                                                Active Tools</th>
+                                            <th
+                                                class="py-2 px-6 font-mono-data text-xs text-on-surface-variant uppercase tracking-wider text-right">
+                                                SAVE/MO</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="font-mono-data text-sm">
+                                        <tr
+                                            class="border-b border-exfluent-border/50 hover:bg-[#1A1A1A] transition-colors">
+                                            <td class="py-3 px-6 text-primary flex items-center gap-2">
+                                                <img class="w-6 h-6 rounded-full object-cover border border-white/10 ring-2 ring-exfluent-purple/10"
+                                                    src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=facearea&facepad=2&w=128&h=128&q=80"
+                                                    alt="Alex S.">Alex S.
+                                            </td>
+                                            <td class="py-3 px-6 text-on-surface-variant">4</td>
+                                            <td class="py-3 px-6 text-right text-primary">$80</td>
+                                        </tr>
+                                        <tr
+                                            class="border-b border-exfluent-border/50 hover:bg-[#1A1A1A] transition-colors">
+                                            <td class="py-3 px-6 text-primary flex items-center gap-2">
+                                                <img class="w-6 h-6 rounded-full object-cover border border-white/10 ring-2 ring-exfluent-lime/10"
+                                                    src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=facearea&facepad=2&w=128&h=128&q=80"
+                                                    alt="Taylor K.">Taylor K.
+                                            </td>
+                                            <td class="py-3 px-6 text-on-surface-variant">2</td>
+                                            <td class="py-3 px-6 text-right text-primary">$120</td>
+                                        </tr>
+                                        <tr
+                                            class="border-b border-exfluent-border/50 hover:bg-[#1A1A1A] transition-colors">
+                                            <td class="py-3 px-6 text-primary flex items-center gap-2">
+                                                <img class="w-6 h-6 rounded-full object-cover border border-white/10 ring-2 ring-exfluent-purple/10"
+                                                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=facearea&facepad=2&w=128&h=128&q=80"
+                                                    alt="Jordan M.">Jordan M.
+                                            </td>
+                                            <td class="py-3 px-6 text-on-surface-variant">5</td>
+                                            <td class="py-3 px-6 text-right text-primary">$210</td>
+                                        </tr>
+                                        <tr class="hover:bg-[#1A1A1A] transition-colors">
+                                            <td class="py-3 px-6 text-primary flex items-center gap-2">
+                                                <img class="w-6 h-6 rounded-full object-cover border border-white/10 ring-2 ring-exfluent-lime/10"
+                                                    src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=facearea&facepad=2&w=128&h=128&q=80"
+                                                    alt="Casey L.">Casey L.
+                                            </td>
+                                            <td class="py-3 px-6 text-on-surface-variant">3</td>
+                                            <td class="py-3 px-6 text-right text-primary">$95</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <!-- 4. Pricing Section -->
+            <main id="pricing" class="relative min-h-screen pt-40 pb-section-gap dot-grid border-b border-white/5">
+                <!-- MASSIVE BACKGROUND TEXT -->
+                <div
+                    class="absolute top-[35%] left-1/2 -translate-x-1/2 -z-10 w-full flex justify-center overflow-hidden">
+                    <h2 class="bg-text-massive font-black text-white italic" style="opacity: 0.15;">PRICING</h2>
+                </div>
+                <div class="max-w-container-max mx-auto px-margin-mobile md:px-gutter">
+                    <!-- SECTION HEADER -->
+                    <div class="text-center mb-24 relative z-10">
+                        <div
+                            class="inline-block px-4 py-1.5 bg-primary-fixed/10 border border-primary-fixed/20 rounded-full mb-6">
+                            <span class="font-label-caps text-primary-fixed tracking-[0.3em] text-[10px]">TIERS OF
+                                POWER</span>
+                        </div>
+                        <h1
+                            class="font-h1 text-h1-mobile md:text-[84px] mb-8 tracking-tighter leading-[0.95] text-white/80 backdrop-blur-sm bg-white/5 px-8 py-4 rounded-3xl border border-white/10 shadow-[inset_0_2px_4px_rgba(255,255,255,0.3),0_10px_20px_rgba(0,0,0,0.5),0_-2px_4px_rgba(0,0,0,0.3)] inline-block">
+                            Stop Wasting <br>Money On AI</h1>
+                        <p class="font-sub-headline text-sub-headline text-on-surface-variant max-w-2xl mx-auto">
+                            Aggressive intelligence for high-stakes enterprise. Choose your level of engagement.
+                        </p>
+                    </div>
+                    <!-- BILLING TOGGLE -->
+                    <div class="flex flex-col items-center mb-20">
+                        <div class="flex items-center gap-6 p-2 bg-white/5 rounded-full border border-white/10">
+                            <button class="px-6 py-2 rounded-full font-label-caps text-[11px] transition-all"
+                                id="monthly-btn">MONTHLY</button>
+                            <div class="flex items-center gap-2 px-6 py-2 bg-primary-fixed text-on-primary-fixed rounded-full shadow-[0_0_20px_rgba(170,255,0,0.3)] transition-all"
+                                id="annual-btn">
+                                <span class="font-label-caps text-[11px] font-black">ANNUAL</span>
+                                <span class="bg-black/20 text-[9px] px-1.5 py-0.5 rounded font-bold">-38%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- PRICING GRID -->
+                    <div class="grid md:grid-cols-3 gap-8 items-stretch relative z-10">
+                        <!-- CARD: FREE -->
+                        <div
+                            class="reveal-card glass-panel rounded-3xl p-10 flex flex-col group relative overflow-hidden visible">
+                            <div class="refraction-edge"></div>
+                            <div class="mb-12">
+                                <span
+                                    class="font-label-caps text-white/40 tracking-[0.2em] text-[11px] mb-8 block"><br></span>
+                                <h3 class="font-h2 text-primary text-[48px] mb-4">Free</h3>
+                                <div class="flex items-baseline gap-1">
+                                    <span class="font-h2 text-white/50 text-[24px]">$</span>
+                                    <span class="font-h2 text-white text-[56px]">0</span>
+                                    <span class="text-white/30 font-mono-data text-[12px] uppercase">/month</span>
+                                </div>
+                                <p class="text-white/50 mt-6 text-[14px] leading-relaxed">Fundamental tracking for
+                                    early-stage
+                                    stacks.</p>
+                            </div>
+                            <div class="flex-grow space-y-5 mb-12">
+                                <div class="flex items-center gap-3"><span
+                                        class="material-symbols-outlined text-[14px] text-white/40">check</span><span
+                                        class="text-body text-[14px] text-white/70">3 AI tools max</span></div>
+                                <div class="flex items-center gap-3"><span
+                                        class="material-symbols-outlined text-[14px] text-white/40">check</span><span
+                                        class="text-body text-[14px] text-white/70">Browser extension included</span>
+                                </div>
+                                <div class="flex items-center gap-3"><span
+                                        class="material-symbols-outlined text-[14px] text-white/40">check</span><span
+                                        class="text-body text-[14px] text-white/70">Gmail auto-detect</span></div>
+                                <div class="flex items-center gap-3"><span
+                                        class="material-symbols-outlined text-[14px] text-white/40">check</span><span
+                                        class="text-body text-[14px] text-white/70">Basic spend tracking</span></div>
+                                <div class="flex items-center gap-3"><span
+                                        class="material-symbols-outlined text-[14px] text-white/40">check</span><span
+                                        class="text-body text-[14px] text-white/70">Watermarked share reports</span>
+                                </div>
+                                <div class="flex items-center gap-3"><span
+                                        class="material-symbols-outlined text-[14px] text-white/40">check</span><span
+                                        class="text-body text-[14px] text-white/70">Email trial alerts</span></div>
+                                <div class="flex items-center gap-3"><span
+                                        class="material-symbols-outlined text-[14px] text-white/40">check</span><span
+                                        class="text-body text-[14px] text-white/70">Basic ROI calculator</span></div>
+                                <div class="flex items-center gap-3"><span
+                                        class="material-symbols-outlined text-[14px] text-white/40">check</span><span
+                                        class="text-body text-[14px] text-white/70">1 optimizer tip/month</span></div>
+                                <div class="flex items-center gap-3"><span
+                                        class="material-symbols-outlined text-[14px] text-white/40">check</span><span
+                                        class="text-body text-[14px] text-white/70">Overlap flags only</span></div>
+                            </div>
+                            <button
+                                class="w-full py-5 rounded-2xl bg-white/5 border border-white/10 font-label-caps hover:bg-white hover:text-black transition-all uppercase tracking-[0.2em] text-[11px] font-black mb-4">Get
+                                Started Free</button>
+                            <p class="text-center text-[10px] text-white/30 font-label-caps">No credit card required</p>
+                        </div>
+                        <!-- CARD: PRO (ELEVATED) -->
+                        <div
+                            class="reveal-card glass-panel pro-glow rounded-3xl p-10 flex flex-col border-primary-fixed/30 bg-primary-fixed/5 transform md:-translate-y-4 z-20 group relative overflow-hidden visible">
+                            <div class="refraction-edge bg-primary-fixed/50"></div>
+                            <div
+                                class="absolute top-6 right-8 bg-primary-fixed text-black font-label-caps py-1 px-3 text-[9px] font-black uppercase tracking-widest rounded shadow-lg">
+                                Costs &lt;10% of avg savings</div>
+                            <div class="mb-12">
+                                <span
+                                    class="font-label-caps text-primary-fixed tracking-[0.2em] text-[11px] mb-8 block"><br></span>
+                                <h3 class="font-h2 text-white text-[48px] mb-4">Pro</h3>
+                                <div class="flex items-baseline gap-1">
+                                    <span class="font-h2 text-primary-fixed text-[24px]">$</span>
+                                    <span class="font-h2 text-white text-[56px]" data-annual="4.99" data-monthly="7.99"
+                                        id="price-pro">4.99</span>
+                                    <span class="text-white/30 font-mono-data text-[12px] uppercase">/month</span>
+                                </div>
+                                <div
+                                    class="mt-6 bg-primary-fixed/20 border border-primary-fixed/30 px-3 py-1.5 inline-flex items-center gap-2 rounded">
+                                    <span
+                                        class="material-symbols-outlined text-[16px] text-primary-fixed">rocket_launch</span>
+                                    <p
+                                        class="text-primary-fixed font-mono-data text-[10px] font-black uppercase tracking-tighter">
+                                        Unlimited AI tools</p>
+                                </div>
+                            </div>
+                            <div class="flex-grow space-y-5 mb-12">
+                                <div class="flex items-center gap-3"><span
+                                        class="material-symbols-outlined text-[16px] text-primary-fixed">bolt</span><span
+                                        class="text-body text-[14px] text-white font-bold">Unlimited AI tools</span>
+                                </div>
+                                <div class="flex items-center gap-3"><span
+                                        class="material-symbols-outlined text-[16px] text-primary-fixed">extension</span><span
+                                        class="text-body text-[14px] text-white">Full browser extension</span></div>
+                                <div class="flex items-center gap-3"><span
+                                        class="material-symbols-outlined text-[16px] text-primary-fixed">forum</span><span
+                                        class="text-body text-[14px] text-white">Slack integration</span></div>
+                                <div class="flex items-center gap-3"><span
+                                        class="material-symbols-outlined text-[16px] text-primary-fixed">analytics</span><span
+                                        class="text-body text-[14px] text-white">Full ROI breakdown</span></div>
+                                <div class="flex items-center gap-3"><span
+                                        class="material-symbols-outlined text-[16px] text-primary-fixed">psychology</span><span
+                                        class="text-body text-[14px] text-white">Unlimited stack optimizer</span></div>
+                                <div class="flex items-center gap-3"><span
+                                        class="material-symbols-outlined text-[16px] text-primary-fixed">tips_and_updates</span><span
+                                        class="text-body text-[14px] text-white">Replacement suggestions</span></div>
+                                <div class="flex items-center gap-3"><span
+                                        class="material-symbols-outlined text-[16px] text-primary-fixed">notifications_active</span><span
+                                        class="text-body text-[14px] text-white">Multi-channel alerts</span></div>
+                                <div class="flex items-center gap-3"><span
+                                        class="material-symbols-outlined text-[16px] text-primary-fixed">download</span><span
+                                        class="text-body text-[14px] text-white">CSV/PDF exports</span></div>
+                                <div class="flex items-center gap-3"><span
+                                        class="material-symbols-outlined text-[16px] text-primary-fixed">public</span><span
+                                        class="text-body text-[14px] text-white">Public stack profile</span></div>
+                                <div class="flex items-center gap-3"><span
+                                        class="material-symbols-outlined text-[16px] text-primary-fixed">share</span><span
+                                        class="text-body text-[14px] text-white">Clean share cards</span></div>
+                                <div class="flex items-center gap-3"><span
+                                        class="material-symbols-outlined text-[16px] text-primary-fixed">support_agent</span><span
+                                        class="text-body text-[14px] text-white">Priority email support</span></div>
+                            </div>
+                            <button
+                                class="w-full py-5 rounded-2xl bg-primary-fixed text-black font-label-caps hover:scale-[1.02] transition-all uppercase tracking-[0.2em] text-[12px] font-black shadow-[0_0_30px_rgba(170,255,0,0.2)]">Start
+                                Saving →</button>
+                        </div>
+                        <!-- CARD: TEAM -->
+                        <div
+                            class="reveal-card glass-panel rounded-3xl p-10 flex flex-col group relative overflow-hidden visible">
+                            <div class="refraction-edge"></div>
+                            <div class="mb-12">
+                                <span
+                                    class="font-label-caps text-white/40 tracking-[0.2em] text-[11px] mb-8 block"><br></span>
+                                <h3 class="font-h2 text-white text-[48px] mb-4">Team</h3>
+                                <div class="flex items-baseline gap-1">
+                                    <span class="font-h2 text-white/50 text-[24px]">$</span>
+                                    <span class="font-h2 text-white text-[56px]" data-annual="12.49"
+                                        data-monthly="19.99" id="price-team">12.49</span>
+                                    <span class="text-white/30 font-mono-data text-[12px] uppercase">/month</span>
+                                </div>
+                                <p class="text-white/50 mt-6 text-[14px] leading-relaxed">Prevents team waste.
+                                    Corporate-grade
+                                    oversight.</p>
+                            </div>
+                            <div class="flex-grow space-y-5 mb-12">
+                                <div class="flex items-center gap-3"><span
+                                        class="material-symbols-outlined text-[14px] text-white/40">star</span><span
+                                        class="text-body text-[14px] text-white/70">All Pro features</span></div>
+                                <div class="flex items-center gap-3"><span
+                                        class="material-symbols-outlined text-[14px] text-white/40">groups</span><span
+                                        class="text-body text-[14px] text-white/70">Team admin dashboard</span></div>
+                                <div class="flex items-center gap-3"><span
+                                        class="material-symbols-outlined text-[14px] text-white/40">account_balance_wallet</span><span
+                                        class="text-body text-[14px] text-white/70">Per-user budgets</span></div>
+                                <div class="flex items-center gap-3"><span
+                                        class="material-symbols-outlined text-[14px] text-white/40">shield</span><span
+                                        class="text-body text-[14px] text-white/70">Shadow AI detection</span></div>
+                                <div class="flex items-center gap-3"><span
+                                        class="material-symbols-outlined text-[14px] text-white/40">vpn_key</span><span
+                                        class="text-body text-[14px] text-white/70">Policy enforcement engine</span>
+                                </div>
+                                <div class="flex items-center gap-3"><span
+                                        class="material-symbols-outlined text-[14px] text-white/40">file_export</span><span
+                                        class="text-body text-[14px] text-white/70">Team-wide exports</span></div>
+                                <div class="flex items-center gap-3"><span
+                                        class="material-symbols-outlined text-[14px] text-white/40">handshake</span><span
+                                        class="text-body text-[14px] text-white/70">Custom onboarding</span></div>
+                                <div class="flex items-center gap-3"><span
+                                        class="material-symbols-outlined text-[14px] text-white/40">gavel</span><span
+                                        class="text-body text-[14px] text-white/70">Dedicated priority support</span>
+                                </div>
+                                <div class="flex items-center gap-3"><span
+                                        class="material-symbols-outlined text-[14px] text-white/40">savings</span><span
+                                        class="text-body text-[14px] text-white/70">Prevents team waste</span></div>
+                            </div>
+                            <button
+                                class="w-full py-5 rounded-2xl bg-white/5 border border-white/10 font-label-caps hover:bg-white hover:text-black transition-all uppercase tracking-[0.2em] text-[11px] font-black">Start
+                                Team Trial</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- ATMOSPHERIC ACCENTS -->
+                <div class="absolute bottom-0 left-0 w-full h-[300px] bg-gradient-to-t from-black to-transparent -z-10">
+                </div>
+            </main>
+
+            <!-- 5. Testimonial Section -->
+            <main class="pt-40 pb-section-gap relative border-b border-white/5">
+                <!-- Section Header -->
+                <header class="max-w-container-max mx-auto px-margin-mobile md:px-gutter mb-20 reveal-item active">
+                    <div
+                        class="flex flex-col md:flex-row md:items-end justify-between gap-base border-b border-white/10 pb-12">
+                        <div class="max-w-2xl">
+                            <span
+                                class="font-label-caps text-label-caps text-primary-fixed mb-4 block uppercase tracking-widest">Validated
+                                Performance</span>
+                            <h1
+                                class="font-h1-mobile md:font-h1 text-h1-mobile md:text-h1 text-on-surface uppercase leading-none tracking-tight drop-shadow-2xl">
+                                See what <span class="text-primary-fixed drop-shadow-[0_0_25px_rgba(166,250,0,0.6)]"
+                                    style="background: linear-gradient(rgb(170, 255, 0) 0%, rgb(119, 187, 0) 100%) text; -webkit-text-fill-color: transparent;">Exfluent</span>
+                                users are saying</h1>
+                        </div>
+                        <div class="text-right hidden md:block"></div>
+                    </div>
+                </header>
+                <!-- Testimonial Grid -->
+                <section class="max-w-container-max mx-auto px-margin-mobile md:px-gutter">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <!-- Card 1: Freelancer -->
+                        <article class="reveal-item glass-card rounded-xl p-8 flex flex-col group active">
+                            <div class="flex justify-between items-start mb-12">
+                                <div
+                                    class="w-12 h-12 rounded-lg bg-primary-container/10 border border-primary-fixed/30 flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-primary-fixed"
+                                        data-icon="person_search">person_search</span>
+                                </div>
+                                <span
+                                    class="font-mono-data text-[9px] text-primary-fixed px-2 py-1 border border-primary-fixed/20 rounded uppercase">Audit
+                                    Success</span>
+                            </div>
+                            <div class="mb-auto">
+                                <div
+                                    class="font-label-caps text-label-caps text-primary-fixed mb-3 uppercase tracking-wider">
+                                    Freelance Solo-Op</div>
+                                <p class="font-body text-body text-on-surface/90 mb-8 italic leading-relaxed">"I was
+                                    paying for
+                                    7 AI tools and using 2. Exfluent found $112/month in wasted subscriptions in 90
+                                    seconds.
+                                    Cancelled 3 tools before lunch."</p>
+                            </div>
+                            <div class="mt-8 pt-6 border-t border-white/5">
+                                <div class="font-mono-data text-[28px] text-primary-fixed font-black leading-none mb-1">
+                                    +142%
+                                </div>
+                                <div
+                                    class="font-label-caps text-[9px] text-on-surface-variant uppercase tracking-widest">
+                                    Efficiency Gain</div>
+                                <div class="mt-6 flex items-center gap-3">
+                                    <img class="w-10 h-10 rounded-full object-cover border border-white/10 ring-2 ring-primary-fixed/10"
+                                        src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                        alt="Marcus Reed">
+                                    <div>
+                                        <div class="font-body text-[14px] font-bold text-on-surface">Marcus Reed</div>
+                                        <div class="font-mono-data text-[9px] text-on-surface-variant uppercase">
+                                            Freelance
+                                            Copywriter</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        <!-- Card 2: Agency -->
+                        <article class="reveal-item glass-card rounded-xl p-8 flex flex-col group active"
+                            style="transition-delay: 100ms;">
+                            <div class="flex justify-between items-start mb-12">
+                                <div
+                                    class="w-12 h-12 rounded-lg bg-[#A855F7]/10 border border-[#A855F7]/30 flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-[#A855F7]" data-icon="hub">hub</span>
+                                </div>
+                                <span
+                                    class="font-mono-data text-[9px] text-[#A855F7] px-2 py-1 border border-[#A855F7]/20 rounded uppercase">Audit
+                                    Success</span>
+                            </div>
+                            <div class="mb-auto">
+                                <div
+                                    class="font-label-caps text-label-caps text-[#A855F7] mb-3 uppercase tracking-wider">
+                                    Global
+                                    Design Agency</div>
+                                <p class="font-body text-body text-on-surface/90 mb-8 italic leading-relaxed">"Our team
+                                    of 8 was
+                                    bleeding $340/month on overlapping AI tools. Exfluent's team dashboard caught shadow
+                                    subscriptions we didn't even know existed. Saved $2,800 in Q1 alone."</p>
+                            </div>
+                            <div class="mt-8 pt-6 border-t border-white/5">
+                                <div class="font-mono-data text-[28px] text-[#A855F7] font-black leading-none mb-1">
+                                    -$240K</div>
+                                <div
+                                    class="font-label-caps text-[9px] text-on-surface-variant uppercase tracking-widest">
+                                    Expenditure Leak</div>
+                                <div class="mt-6 flex items-center gap-3">
+                                    <img class="w-10 h-10 rounded-full object-cover border border-white/10 ring-2 ring-[#A855F7]/10"
+                                        src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                        alt="Sarah Chen">
+                                    <div>
+                                        <div class="font-body text-[14px] font-bold text-on-surface">Sarah Chen</div>
+                                        <div class="font-mono-data text-[9px] text-on-surface-variant uppercase">
+                                            Founder,
+                                            PixelForge Agency</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        <!-- Card 3: Enterprise -->
+                        <article class="reveal-item glass-card rounded-xl p-8 flex flex-col group active"
+                            style="transition-delay: 200ms;">
+                            <div class="flex justify-between items-start mb-12">
+                                <div
+                                    class="w-12 h-12 rounded-lg bg-[#FF2D78]/10 border border-[#FF2D78]/30 flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-[#FF2D78]"
+                                        data-icon="corporate_fare">corporate_fare</span>
+                                </div>
+                                <span
+                                    class="font-mono-data text-[9px] text-[#FF2D78] px-2 py-1 border border-[#FF2D78]/20 rounded uppercase">Audit
+                                    Success</span>
+                            </div>
+                            <div class="mb-auto">
+                                <div
+                                    class="font-label-caps text-label-caps text-[#FF2D78] mb-3 uppercase tracking-wider">
+                                    SaaS
+                                    Enterprise</div>
+                                <p class="font-body text-body text-on-surface/90 mb-8 italic leading-relaxed">"I thought
+                                    Copilot
+                                    was worth every penny until Exfluent showed me I was only using 18% of Pro features.
+                                    Downgraded to free tier, kept the same output. $19/mo saved instantly."</p>
+                            </div>
+                            <div class="mt-8 pt-6 border-t border-white/5">
+                                <div class="font-mono-data text-[28px] text-[#FF2D78] font-black leading-none mb-1">100%
+                                </div>
+                                <div
+                                    class="font-label-caps text-[9px] text-on-surface-variant uppercase tracking-widest">
+                                    Transparency</div>
+                                <div class="mt-6 flex items-center gap-3">
+                                    <img class="w-10 h-10 rounded-full object-cover border border-white/10 ring-2 ring-[#FF2D78]/10"
+                                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                        alt="James Torres">
+                                    <div>
+                                        <div class="font-body text-[14px] font-bold text-on-surface">James Torres</div>
+                                        <div class="font-mono-data text-[9px] text-on-surface-variant uppercase">Senior
+                                            Developer, NexaTech</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        <!-- Card 4: Dev House -->
+                        <article class="reveal-item glass-card rounded-xl p-8 flex flex-col group active"
+                            style="transition-delay: 300ms;">
+                            <div class="flex justify-between items-start mb-12">
+                                <div
+                                    class="w-12 h-12 rounded-lg bg-white/5 border border-white/30 flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-white"
+                                        data-icon="terminal">terminal</span>
+                                </div>
+                                <span
+                                    class="font-mono-data text-[9px] text-white px-2 py-1 border border-white/20 rounded uppercase">Audit
+                                    Success</span>
+                            </div>
+                            <div class="mb-auto">
+                                <div class="font-label-caps text-label-caps text-white mb-3 uppercase tracking-wider">
+                                    Development House</div>
+                                <p class="font-body text-body text-on-surface/90 mb-8 italic leading-relaxed">"Jasper,
+                                    Copy.ai,
+                                    and ChatGPT were all doing the same writing tasks. Exfluent's overlap detector
+                                    flagged it
+                                    immediately. Kept ChatGPT, cancelled the rest. $69/mo back in my pocket."</p>
+                            </div>
+                            <div class="mt-8 pt-6 border-t border-white/5">
+                                <div class="font-mono-data text-[28px] text-white font-black leading-none mb-1">9.2x
+                                </div>
+                                <div
+                                    class="font-label-caps text-[9px] text-on-surface-variant uppercase tracking-widest">
+                                    ROI on
+                                    Spend</div>
+                                <div class="mt-6 flex items-center gap-3">
+                                    <img class="w-10 h-10 rounded-full object-cover border border-white/10 ring-2 ring-white/10"
+                                        src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                        alt="Lisa Park">
+                                    <div>
+                                        <div class="font-body text-[14px] font-bold text-on-surface">Lisa Park</div>
+                                        <div class="font-mono-data text-[9px] text-on-surface-variant uppercase">YouTube
+                                            Creator, 240K Subs</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+                <!-- Floating Metrics Modules -->
+                <section class="max-w-container-max mx-auto mt-32 px-margin-mobile md:px-gutter relative">
+                    <div class="flex flex-wrap justify-center gap-8 items-center">
+                        <!-- Metric 1 -->
+                        <div class="reveal-item glass-metric rounded-2xl p-10 min-w-[280px] text-center active"
+                            style="transform: rotate(-1deg); transition-delay: 100ms;">
+                            <div
+                                class="font-mono-data text-[48px] text-primary-fixed leading-none font-black drop-shadow-[0_0_15px_rgba(166,250,0,0.4)] mb-4">
+                                $1.2B+</div>
+                            <div class="font-label-caps text-[12px] text-on-surface-variant uppercase tracking-[0.2em]">
+                                Total
+                                Audit Throughput</div>
+                            <div
+                                class="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-primary-fixed blur-sm animate-pulse">
+                            </div>
+                        </div>
+                        <!-- Metric 2 -->
+                        <div class="reveal-item glass-metric rounded-2xl p-12 min-w-[320px] text-center active"
+                            style="transform: rotate(2deg); transition-delay: 300ms;">
+                            <div
+                                class="font-mono-data text-[56px] text-[#A855F7] leading-none font-black drop-shadow-[0_0_20px_rgba(168,85,247,0.4)] mb-4">
+                                4.2M</div>
+                            <div class="font-label-caps text-[12px] text-on-surface-variant uppercase tracking-[0.2em]">
+                                Zombie
+                                Seats Purged</div>
+                            <div
+                                class="absolute -bottom-3 -left-3 w-6 h-6 rounded-full bg-[#A855F7] blur-md opacity-60">
+                            </div>
+                        </div>
+                        <!-- Metric 3 -->
+                        <div class="reveal-item glass-metric rounded-2xl p-10 min-w-[280px] text-center active"
+                            style="transform: rotate(-2deg); transition-delay: 500ms;">
+                            <div
+                                class="font-mono-data text-[48px] text-[#FF2D78] leading-none font-black drop-shadow-[0_0_15px_rgba(255,45,120,0.4)] mb-4">
+                                22ms</div>
+                            <div class="font-label-caps text-[12px] text-on-surface-variant uppercase tracking-[0.2em]">
+                                Oversight Latency</div>
+                            <div class="absolute top-1/2 -right-4 w-8 h-8 rounded-full bg-[#FF2D78] blur-xl opacity-20">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <!-- 6. FAQs Section -->
+            <main id="faq" class="pt-32 pb-section-gap radial-glow border-b border-white/5">
+                <div class="max-w-[800px] mx-auto px-margin-mobile">
+                    <!-- FAQ Header -->
+                    <div class="mb-12 text-center md:text-left">
+                        <div
+                            class="inline-flex items-center gap-2 px-3 py-1 border border-outline-variant rounded-full mb-6">
+                            <span class="w-2 h-2 bg-primary-fixed rounded-full animate-pulse"></span>
+                            <span
+                                class="font-label-caps text-label-caps text-on-surface-variant tracking-widest uppercase">Good
+                                to know</span>
+                        </div>
+                        <h1
+                            class="font-h2 text-[48px] md:text-h2 text-primary font-extrabold tracking-tighter leading-tight">
+                            Frequently asked questions
+                        </h1>
+                    </div>
+                    <!-- FAQ Accordion -->
+                    <div class="border-t border-outline-variant">
+                        <!-- Item 1 -->
+                        <div class="accordion-item border-b border-outline-variant group cursor-pointer"
+                            onclick="toggleAccordion(this)">
+                            <div class="flex items-start gap-4 py-6">
+                                <span class="material-symbols-outlined icon-rotate text-on-surface-variant mt-0.5"
+                                    data-icon="add">add</span>
+                                <div class="flex-1">
+                                    <h3
+                                        class="question-text font-bold text-[16px] text-white transition-colors duration-300">
+                                        How much money will I actually save?</h3>
+                                    <div class="accordion-content mt-4">
+                                        <p class="font-body text-[15px] text-[#AAA] leading-relaxed">
+                                            The average Exfluent user saves $89/month per active AI seat by identifying
+                                            redundant subscriptions and optimizing token usage through our proprietary
+                                            intelligence routing layer. High-volume agencies typically see savings
+                                            exceeding 30%
+                                            of their total AI overhead within the first billing cycle.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Item 2 -->
+                        <div class="accordion-item border-b border-outline-variant group cursor-pointer active"
+                            onclick="toggleAccordion(this)">
+                            <div class="flex items-start gap-4 py-6">
+                                <span class="material-symbols-outlined icon-rotate text-on-surface-variant mt-0.5"
+                                    data-icon="add">add</span>
+                                <div class="flex-1">
+                                    <h3
+                                        class="question-text font-bold text-[16px] text-white transition-colors duration-300">
+                                        Is
+                                        my data private and secure?</h3>
+                                    <div class="accordion-content mt-4">
+                                        <p class="font-body text-[15px] text-[#AAA] leading-relaxed">
+                                            Absolutely. Exfluent uses bank-level AES-256 encryption for all data at rest
+                                            and TLS
+                                            1.3 for data in transit. We are SOC2 Type II compliant and never train our
+                                            models on
+                                            your sensitive business logic or proprietary audit logs. Your data remains
+                                            yours,
+                                            localized to your workspace.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Item 3 -->
+                        <div class="accordion-item border-b border-outline-variant group cursor-pointer"
+                            onclick="toggleAccordion(this)">
+                            <div class="flex items-start gap-4 py-6">
+                                <span class="material-symbols-outlined icon-rotate text-on-surface-variant mt-0.5"
+                                    data-icon="add">add</span>
+                                <div class="flex-1">
+                                    <h3
+                                        class="question-text font-bold text-[16px] text-white transition-colors duration-300">
+                                        Which AI tools does Exfluent support?</h3>
+                                    <div class="accordion-content mt-4">
+                                        <p class="font-body text-[15px] text-[#AAA] leading-relaxed">
+                                            Exfluent supports all major AI tools including ChatGPT, Claude, Midjourney,
+                                            Jasper,
+                                            and over 45+ enterprise-grade LLM providers. Our API integrations allow for
+                                            real-time monitoring of seat utilization and cost-per-prompt metrics across
+                                            your
+                                            entire tech stack.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Item 4 -->
+                        <div class="accordion-item border-b border-outline-variant group cursor-pointer"
+                            onclick="toggleAccordion(this)">
+                            <div class="flex items-start gap-4 py-6">
+                                <span class="material-symbols-outlined icon-rotate text-on-surface-variant mt-0.5"
+                                    data-icon="add">add</span>
+                                <div class="flex-1">
+                                    <h3
+                                        class="question-text font-bold text-[16px] text-white transition-colors duration-300">
+                                        How long does setup take?</h3>
+                                    <div class="accordion-content mt-4">
+                                        <p class="font-body text-[15px] text-[#AAA] leading-relaxed">
+                                            Most users complete setup in under 60 seconds. Simply connect your primary
+                                            billing
+                                            accounts or invite your team members, and our AI will immediately begin
+                                            auditing
+                                            your historical usage patterns to generate your first Efficiency Score and
+                                            ROI
+                                            report.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Item 5 -->
+                        <div class="accordion-item border-b border-outline-variant group cursor-pointer"
+                            onclick="toggleAccordion(this)">
+                            <div class="flex items-start gap-4 py-6">
+                                <span class="material-symbols-outlined icon-rotate text-on-surface-variant mt-0.5"
+                                    data-icon="add">add</span>
+                                <div class="flex-1">
+                                    <h3
+                                        class="question-text font-bold text-[16px] text-white transition-colors duration-300">
+                                        Can I cancel my Exfluent subscription anytime?</h3>
+                                    <div class="accordion-content mt-4">
+                                        <p class="font-body text-[15px] text-[#AAA] leading-relaxed">
+                                            Your Pro or Team subscription continues until the end of your billing
+                                            period. You
+                                            can downgrade to the Free tier at any time through your account settings. We
+                                            believe
+                                            in earning your business through performance, not lock-in contracts.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Item 6 -->
+                        <div class="accordion-item border-b border-outline-variant group cursor-pointer"
+                            onclick="toggleAccordion(this)">
+                            <div class="flex items-start gap-4 py-6">
+                                <span class="material-symbols-outlined icon-rotate text-on-surface-variant mt-0.5"
+                                    data-icon="add">add</span>
+                                <div class="flex-1">
+                                    <h3
+                                        class="question-text font-bold text-[16px] text-white transition-colors duration-300">
+                                        Does Exfluent work for teams and agencies?</h3>
+                                    <div class="accordion-content mt-4">
+                                        <p class="font-body text-[15px] text-[#AAA] leading-relaxed">
+                                            Yes. Our Team plan includes admin dashboards specifically designed for
+                                            agencies to
+                                            manage client-specific AI spend. You can set budget caps per project, track
+                                            individual contributor efficiency, and export white-labeled ROI reports for
+                                            your
+                                            stakeholders.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <!-- 7. Join Us Banner -->
+            <section class="w-full bg-primary-fixed relative overflow-hidden"
+                style="--mouse-x: 1076px; --mouse-y: 619px;">
+                <div
+                    class="max-w-container-max mx-auto px-margin-mobile md:px-gutter py-12 md:py-20 flex flex-col md:flex-row items-center justify-between relative z-10">
+                    <div class="flex flex-col gap-4 text-center md:text-left mb-8 md:mb-0">
+                        <span class="font-label-caps text-label-caps text-on-primary-fixed tracking-[0.2em]">JOIN
+                            US</span>
+                        <h2 class="font-h2 text-h2 md:text-h1 text-on-primary-fixed leading-tight">Get started today
+                        </h2>
+                    </div>
+                    <button
+                        class="cta-hover bg-background text-primary-fixed px-8 py-4 flex items-center gap-3 font-bold transition-transform active:scale-95 group">
+                        <span class="font-body text-body">Try Exfluent free</span>
+                        <span class="material-symbols-outlined arrow-icon">arrow_forward</span>
+                    </button>
+                </div>
+                <!-- Decorative Pattern -->
+                <div
+                    class="absolute right-0 top-0 bottom-0 w-1/3 flex items-center justify-center geometric-overlay select-none">
+                    <div class="grid grid-cols-2 gap-8 transform rotate-12 scale-150">
+                        <div class="text-[120px] font-black leading-none text-on-primary-fixed">X</div>
+                        <div class="text-[120px] font-black leading-none text-on-primary-fixed">O</div>
+                        <div class="text-[120px] font-black leading-none text-on-primary-fixed">K</div>
+                        <div class="text-[120px] font-black leading-none text-on-primary-fixed">X</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 7. Main Footer -->
+            <footer class="bg-background border-t border-surface-container-highest">
+                <div
+                    class="max-w-container-max mx-auto px-margin-mobile md:px-gutter py-section-gap flex flex-col md:flex-row justify-between gap-16">
+                    <!-- Left Branding Column -->
+                    <div class="flex flex-col gap-8 max-w-sm">
+                        <div class="flex items-center gap-2">
+                            <span class="font-h2 text-h2 font-black text-primary-fixed tracking-tighter">Exfluent</span>
+                        </div>
+                        <p class="font-body text-on-surface-variant leading-relaxed">
+                            Seamless AI-to-ROI oversight in any application. One platform to purge waste instead of
+                            type.
+                        </p>
+                        <p class="font-label-caps text-label-caps text-on-surface-variant opacity-60">
+                            © 2026 Exfluent. The Operational Layer For AI Productivity
+                        </p>
+                    </div>
+                    <!-- Right Links Columns -->
+                    <div class="grid grid-cols-2 gap-12 md:gap-24">
+                        <!-- Column 1: About -->
+                        <div class="flex flex-col gap-6">
+                            <h4 class="font-label-caps text-label-caps text-primary uppercase tracking-[0.15em]">About
+                            </h4>
+                            <ul class="flex flex-col gap-4">
+                                <li class=""><a
+                                        class="font-body text-on-surface-variant hover:text-primary-fixed transition-colors duration-200"
+                                        href="#pricing">Pricing</a></li>
+                                <li class=""><a
+                                        class="font-body text-on-surface-variant hover:text-primary-fixed transition-colors duration-200"
+                                        href="#faq">FAQ</a></li>
+                                <li class=""><a
+                                        class="font-body text-on-surface-variant hover:text-primary-fixed transition-colors duration-200"
+                                        href="#faq">Contact</a></li>
+                            </ul>
+                        </div>
+                        <div class="flex flex-col gap-6">
+                            <h4 class="font-label-caps text-label-caps text-primary uppercase tracking-[0.15em]">Legal
+                            </h4>
+                            <ul class="flex flex-col gap-4">
+                                <li class=""><a
+                                        class="font-body text-on-surface-variant hover:text-primary-fixed transition-colors duration-200"
+                                        href="terms-of-service.html">Terms of Service</a></li>
+                                <li class=""><a
+                                        class="font-body text-on-surface-variant hover:text-primary-fixed transition-colors duration-200"
+                                        href="privacy-policy.html">Privacy Policy</a></li>
+                                <li class=""><a
+                                        class="font-body text-on-surface-variant hover:text-primary-fixed transition-colors duration-200"
+                                        href="cookie-policy.html">Cookie Policy</a></li>
+                                <li class=""><a
+                                        class="font-body text-on-surface-variant hover:text-primary-fixed transition-colors duration-200"
+                                        class="font-body text-on-surface-variant hover:text-primary-fixed transition-colors duration-200"
+                                        href="security.html">Security</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-t border-surface-container-highest"></div>
+            </footer>
+
+        </div>
+    </div>
+
+    <!-- Combined Scripts -->
+    <script>
+        // Hero CTA logic
+        const heroCta = document.getElementById('hero-cta');
+        if (heroCta) {
+            heroCta.addEventListener('click', function () {
+                const btn = this;
+                const textSpan = document.getElementById('cta-text');
+                const iconSpan = btn.querySelector('.material-symbols-outlined');
+
+                btn.classList.add('opacity-80', 'cursor-wait');
+                textSpan.textContent = 'Scanning...';
+                iconSpan.textContent = 'autorenew';
+                iconSpan.classList.add('animate-spin');
+
+                setTimeout(() => {
+                    btn.classList.remove('opacity-80', 'cursor-wait');
+                    textSpan.textContent = 'Audit Complete';
+                    iconSpan.classList.remove('animate-spin');
+                    iconSpan.textContent = 'check';
+                    btn.classList.add('bg-white', 'text-black');
+                }, 2000);
+            });
+        }
+
+        // Shared & Page Animations
+        document.addEventListener('DOMContentLoaded', () => {
+            // Number counters (File 1)
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const duration = 1200; // 1.2s
+                const stepTime = Math.abs(Math.floor(duration / target));
+                let current = 0;
+
+                const timer = setInterval(() => {
+                    current += 1;
+                    counter.innerText = current;
+                    if (current >= target) {
+                        counter.innerText = target;
+                        clearInterval(timer);
+                    }
+                }, stepTime);
+            });
+
+            // ROI Bars stagger (File 1)
+            setTimeout(() => {
+                const bars = document.querySelectorAll('.roi-bar');
+                bars.forEach((bar, index) => {
+                    setTimeout(() => {
+                        bar.style.width = bar.getAttribute('data-width');
+                    }, index * 150);
+                });
+            }, 500);
+
+            // Problem Section Intersection Observer (File 1)
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.2
+            };
+
+            let bleedInterval;
+            let saveCounterStarted = false;
+            let bleedValue = 623.40;
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Fade Up Elements
+                        if (entry.target.classList.contains('observe-fade-up')) {
+                            entry.target.classList.add('in-view');
+
+                            // Start Counters when Panel is in view
+                            if (entry.target.id === 'problem-panel' && !saveCounterStarted) {
+                                saveCounterStarted = true;
+
+                                // Live Bleed Counter
+                                const bleedEl = document.getElementById('bleed-counter');
+                                bleedInterval = setInterval(() => {
+                                    bleedValue += 0.0038;
+                                    bleedEl.textContent = bleedValue.toFixed(4);
+                                    MentionedEl = bleedEl;
+                                }, 100);
+
+                                // Savings Locked Counter
+                                const saveEl = document.getElementById('save-counter');
+                                let saveValue = 0;
+                                const saveTarget = 104.00;
+                                const saveSteps = 40;
+                                const saveIncrement = saveTarget / saveSteps;
+                                let step = 0;
+
+                                const saveInterval = setInterval(() => {
+                                    step++;
+                                    saveValue += saveIncrement;
+                                    if (step >= saveSteps) {
+                                        saveValue = saveTarget;
+                                        clearInterval(saveInterval);
+                                    }
+                                    saveEl.textContent = saveValue.toFixed(2);
+                                }, 30);
+                            }
+                        }
+
+                        // SVG Chart Animations
+                        if (entry.target.classList.contains('svg-path-observe') || entry.target.classList.contains('observe-chart')) {
+                            entry.target.classList.add('drawn');
+                        }
+
+                        // Unobserve if not bleed counter panel
+                        if (entry.target.id !== 'problem-panel') {
+                            observer.unobserve(entry.target);
+                        }
+                    } else {
+                        // Pause bleeding if out of view to save resources
+                        if (entry.target.id === 'problem-panel') {
+                            clearInterval(bleedInterval);
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.observe-fade-up, .svg-path-observe, .observe-chart').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Scroll animations observer for Capabilities (File 3)
+            const animOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const animObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, animOptions);
+
+            document.querySelectorAll('.animate-on-scroll').forEach((el) => {
+                animObserver.observe(el);
+            });
+
+            // Live Counter Logic (File 3)
+            const liveCounter = document.getElementById('live-counter');
+            if (liveCounter) {
+                let baseAmount = 11070.00;
+                const increment = 0.0038;
+
+                setInterval(() => {
+                    baseAmount += increment;
+                    liveCounter.innerText = `$${baseAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+                    liveCounter.style.opacity = 1;
+                }, 1000);
+            }
+
+            // ROI Animation (File 3)
+            const roiResult = document.getElementById('roi-result');
+            if (roiResult) {
+                let targetROI = 1000;
+                let currentROI = 0;
+
+                const roiObserver = new IntersectionObserver((entries) => {
+                    if (entries[0].isIntersecting) {
+                        const roiInterval = setInterval(() => {
+                            currentROI += 25;
+                            if (currentROI >= targetROI) {
+                                currentROI = targetROI;
+                                clearInterval(roiInterval);
+                            }
+                            roiResult.innerText = `$${currentROI.toLocaleString()}`;
+                        }, 20);
+                        roiObserver.disconnect();
+                    }
+                });
+                roiObserver.observe(roiResult);
+            }
+
+            // Pricing reveals observer (File 4)
+            const cardObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                        }, index * 200);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal-card').forEach(card => cardObserver.observe(card));
+
+            // Testimonials reveal observer (File 5)
+            const revealItemObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        revealItemObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -100px 0px' });
+
+            document.querySelectorAll('.reveal-item').forEach(el => {
+                revealItemObserver.observe(el);
+            });
+        });
+
+        // Pricing Toggle Logic (File 4)
+        const monthlyBtn = document.getElementById('monthly-btn');
+        const annualBtn = document.getElementById('annual-btn');
+        const proPrice = document.getElementById('price-pro');
+        const teamPrice = document.getElementById('price-team');
+
+        if (monthlyBtn && annualBtn) {
+            function setBilling(isAnnual) {
+                if (isAnnual) {
+                    annualBtn.classList.add('bg-primary-fixed', 'text-black', 'shadow-[0_0_20px_rgba(170,255,0,0.3)]');
+                    annualBtn.classList.remove('bg-transparent', 'text-white/40');
+                    monthlyBtn.classList.add('text-white/40');
+                    monthlyBtn.classList.remove('bg-primary-fixed', 'text-black', 'shadow-[0_0_20px_rgba(170,255,0,0.3)]');
+                    animateValue(proPrice, parseFloat(proPrice.innerText), parseFloat(proPrice.dataset.annual));
+                    animateValue(teamPrice, parseFloat(teamPrice.innerText), parseFloat(teamPrice.dataset.annual));
+                } else {
+                    monthlyBtn.classList.add('bg-primary-fixed', 'text-black', 'shadow-[0_0_20px_rgba(170,255,0,0.3)]');
+                    monthlyBtn.classList.remove('text-white/40');
+                    annualBtn.classList.add('text-white/40');
+                    annualBtn.classList.remove('bg-primary-fixed', 'text-black', 'shadow-[0_0_20px_rgba(170,255,0,0.3)]');
+                    animateValue(proPrice, parseFloat(proPrice.innerText), parseFloat(proPrice.dataset.monthly));
+                    animateValue(teamPrice, parseFloat(teamPrice.innerText), parseFloat(teamPrice.dataset.monthly));
+                }
+            }
+
+            function animateValue(obj, start, end) {
+                if (!obj) return;
+                const duration = 500;
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    obj.innerText = (progress * (end - start) + start).toFixed(2);
+                    if (progress < 1) window.requestAnimationFrame(step);
+                };
+                window.requestAnimationFrame(step);
+            }
+
+            monthlyBtn.addEventListener('click', () => setBilling(false));
+            annualBtn.addEventListener('click', () => setBilling(true));
+        }
+
+        // Depth sensing effect for floating cards (File 5)
+        document.querySelectorAll('.glass-metric').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const xPct = (x / rect.width - 0.5) * 10;
+                const yPct = (y / rect.height - 0.5) * -10;
+
+                card.style.transform = `perspective(1000px) rotateX(${yPct}deg) rotateY(${xPct}deg) translateY(-15px)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                const originalTransform = card.style.getPropertyValue('transform').includes('rotate')
+                    ? card.getAttribute('style').split('transform: ')[1].split(';')[0]
+                    : 'none';
+                card.style.transform = originalTransform;
+            });
+        });
+
+        // Accordion toggle logic (File 6)
+        function toggleAccordion(element) {
+            const items = document.querySelectorAll('.accordion-item');
+            items.forEach(item => {
+                if (item !== element && item.classList.contains('active')) {
+                    item.classList.remove('active');
+                }
+            });
+            element.classList.toggle('active');
+        }
+
+        // Mouse Shadow Effect for Brutalist Depth (File 7)
+        document.addEventListener('mousemove', (e) => {
+            const banner = document.querySelector('.bg-primary-fixed');
+            if (banner) {
+                const rect = banner.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                banner.style.setProperty('--mouse-x', `${x}px`);
+                banner.style.setProperty('--mouse-y', `${y}px`);
+            }
+        });
+
+        // --- Custom ScrollSmoother Implementation ---
+        class CustomScrollSmoother {
+            constructor(config) {
+                this.wrapper = typeof config.wrapper === 'string' ? document.querySelector(config.wrapper) : config.wrapper;
+                this.content = typeof config.content === 'string' ? document.querySelector(config.content) : config.content;
+                this.smooth = config.smooth || 1;
+                this.effects = config.effects || false;
+
+                this.scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                this.smoothedTop = this.scrollTop;
+                this.isPaused = false;
+                this.parallaxElements = [];
+                this.lastTime = performance.now();
+
+                this.init();
+            }
+
+            init() {
+                // Setup wrapper and content styles to lock container in viewport
+                this.wrapper.style.position = 'fixed';
+                this.wrapper.style.top = '0';
+                this.wrapper.style.left = '0';
+                this.wrapper.style.width = '100%';
+                this.wrapper.style.height = '100%';
+                this.wrapper.style.overflow = 'hidden';
+                this.wrapper.style.zIndex = '1';
+
+                this.content.style.width = '100%';
+                this.content.style.overflow = 'visible';
+                this.content.style.position = 'relative';
+                this.content.style.willChange = 'transform';
+
+                this.resize();
+
+                // Event Listeners
+                window.addEventListener('resize', () => this.resize(), { passive: true });
+                window.addEventListener('scroll', () => this.onScroll(), { passive: true });
+
+                if (this.effects) {
+                    // Give layout a brief moment to stabilize, then init effects
+                    setTimeout(() => this.initEffects(), 100);
+                }
+
+                // Start requestAnimationFrame loop
+                this.tick();
+
+                // Intercept anchor clicks to scroll smoothly using native scroll + smoother lerp
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', (e) => {
+                        const href = anchor.getAttribute('href');
+                        if (href === '#') return;
+                        e.preventDefault();
+                        const target = document.querySelector(href);
+                        if (target) {
+                            const offsetTop = target.getBoundingClientRect().top - this.content.getBoundingClientRect().top;
+                            const scrollTarget = Math.max(0, offsetTop - 100); // offset navbar height
+                            window.scrollTo({
+                                top: scrollTarget,
+                                behavior: 'auto' // instant native scroll, let smoother animate it!
+                            });
+                        }
+                    });
+                });
+            }
+
+            resize() {
+                if (this.isPaused) return;
+                const height = this.content.scrollHeight || this.content.offsetHeight;
+                document.body.style.height = `${height}px`;
+            }
+
+            onScroll() {
+                if (this.isPaused) {
+                    window.scrollTo(0, this.scrollTop);
+                    return;
+                }
+                this.scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            }
+
+            paused(value) {
+                if (value === undefined) return this.isPaused;
+                this.isPaused = !!value;
+                if (this.isPaused) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = '';
+                    this.resize();
+                }
+            }
+
+            initEffects() {
+                const speedElements = document.querySelectorAll('[data-speed]');
+                const lagElements = document.querySelectorAll('[data-lag]');
+
+                speedElements.forEach(el => {
+                    const speedAttr = el.getAttribute('data-speed');
+                    const speed = speedAttr === 'auto' ? 'auto' : parseFloat(speedAttr);
+
+                    const rect = el.getBoundingClientRect();
+                    const parent = el.parentElement;
+                    const parentRect = parent ? parent.getBoundingClientRect() : rect;
+
+                    const item = {
+                        element: el,
+                        speed: speed,
+                        initialTop: rect.top + window.scrollY,
+                        height: rect.height,
+                        parent: parent,
+                        parentTop: parentRect.top + window.scrollY,
+                        parentHeight: parentRect.height,
+                        laggedY: window.scrollY
+                    };
+                    this.parallaxElements.push(item);
+                });
+
+                lagElements.forEach(el => {
+                    let item = this.parallaxElements.find(item => item.element === el);
+                    const lag = parseFloat(el.getAttribute('data-lag'));
+                    if (item) {
+                        item.lag = lag;
+                    } else {
+                        const rect = el.getBoundingClientRect();
+                        this.parallaxElements.push({
+                            element: el,
+                            speed: 1,
+                            initialTop: rect.top + window.scrollY,
+                            height: rect.height,
+                            lag: lag,
+                            laggedY: window.scrollY
+                        });
+                    }
+                });
+            }
+
+            tick() {
+                requestAnimationFrame(() => this.tick());
+
+                const now = performance.now();
+                const dt = Math.min(30, now - this.lastTime); // Clamp dt to prevent massive jumps on tab sleep
+                this.lastTime = now;
+
+                // Scroll smoothing ease (delta-time independent)
+                const ease = 1 - Math.exp(-0.006 * dt / (this.smooth || 1));
+                this.smoothedTop += (this.scrollTop - this.smoothedTop) * ease;
+
+                if (Math.abs(this.scrollTop - this.smoothedTop) < 0.1) {
+                    this.smoothedTop = this.scrollTop;
+                }
+
+                // Translate main content wrapper
+                this.content.style.transform = `translate3d(0px, -${this.smoothedTop}px, 0px)`;
+
+                // Animate parallax and lag effects
+                const vh = window.innerHeight;
+                this.parallaxElements.forEach(item => {
+                    let translate = 0;
+
+                    if (item.speed === 'auto') {
+                        const diff = item.height - item.parentHeight;
+                        if (diff > 0) {
+                            const midY = item.parentTop + item.parentHeight / 2 - vh / 2;
+                            const range = item.parentHeight + vh;
+                            const factor = (this.smoothedTop - midY) / range;
+                            translate = -factor * diff;
+                        }
+                    } else if (item.speed !== 1) {
+                        const centerScroll = item.initialTop + item.height / 2 - vh / 2;
+                        translate = (centerScroll - this.smoothedTop) * (1 - item.speed);
+                    }
+
+                    if (item.lag) {
+                        const lagEase = 1 - Math.exp(-0.005 * dt / item.lag);
+                        item.laggedY += (this.smoothedTop - item.laggedY) * lagEase;
+                        translate += (this.smoothedTop - item.laggedY);
+                    }
+
+                    item.element.style.transform = `translate3d(0px, ${translate}px, 0px)`;
+                });
+            }
+        }
+
+        // Expose globally
+        window.ScrollSmoother = {
+            create(config) {
+                return new CustomScrollSmoother(config);
+            }
+        };
+
+        // Initialize ScrollSmoother
+        let smoother;
+        document.addEventListener('DOMContentLoaded', () => {
+            smoother = ScrollSmoother.create({
+                wrapper: '#smooth-wrapper',
+                content: '#smooth-content',
+                smooth: 1.2,
+                effects: true
+            });
+            // Recalculate heights periodically to handle dynamic content loads
+            setTimeout(() => {
+                if (smoother) smoother.resize();
+            }, 500);
+            setTimeout(() => {
+                if (smoother) smoother.resize();
+            }, 2000);
+        });
+    </script>
+</body>
+
+</html>
