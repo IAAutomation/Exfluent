@@ -15,7 +15,7 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
         rel="stylesheet">
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@500&amp;display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;family=Manrope:wght@200;400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap"
         rel="stylesheet">
 
     <!-- Combined Tailwind Configuration -->
@@ -32,7 +32,7 @@
                         "surface": "#111111",
                         "surface-variant": "#1a1a1a",
                         "on-surface": "#ffffff",
-                        "on-surface-variant": "#888888",
+                        "on-surface-variant": "#D4D4D8",
                         "border-color": "#222222",
                         "dashboard-bg": "#0F0F0F",
                         "dashboard-border": "#1F1F1F",
@@ -102,15 +102,16 @@
                         "margin-mobile": "16px"
                     },
                     fontFamily: {
-                        "sans": ["Inter", "sans-serif"],
+                        "sans": ["Manrope", "Inter", "sans-serif"],
+                        "manrope": ["Manrope", "sans-serif"],
                         "mono": ["monospace"],
                         "mono-data": ["JetBrains Mono", "monospace"],
-                        "sub-headline": ["Inter"],
-                        "h1-mobile": ["Inter"],
-                        "label-caps": ["Inter"],
-                        "body": ["Inter"],
-                        "h1": ["Inter"],
-                        "h2": ["Inter"]
+                        "sub-headline": ["Manrope", "Inter", "sans-serif"],
+                        "h1-mobile": ["Manrope", "Inter", "sans-serif"],
+                        "label-caps": ["Manrope", "Inter", "sans-serif"],
+                        "body": ["Manrope", "Inter", "sans-serif"],
+                        "h1": ["Manrope", "Inter", "sans-serif"],
+                        "h2": ["Manrope", "Inter", "sans-serif"]
                     },
                     fontSize: {
                         "mono-data": ["14px", { "lineHeight": "1", "fontWeight": "500" }],
@@ -131,6 +132,14 @@
 
     <!-- Combined Custom Styles -->
     <style>
+        /* High contrast borders */
+        .border-white\/5 {
+            border-color: rgba(255, 255, 255, 0.18) !important;
+        }
+        .border-white\/\[0\.05\] {
+            border-color: rgba(255, 255, 255, 0.15) !important;
+        }
+
         html {
             scroll-behavior: auto !important;
             overscroll-behavior: none;
@@ -424,36 +433,42 @@
         }
 
         .glass-card {
-            background: rgba(25, 25, 25, 0.6);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: linear-gradient(135deg, rgba(25, 25, 25, 0.7) 0%, rgba(10, 10, 10, 0.9) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             box-shadow:
-                0 25px 50px -12px rgba(0, 0, 0, 0.5),
-                inset 1px 1px 0px 0px rgba(255, 255, 255, 0.1);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                0 30px 60px -10px rgba(0, 0, 0, 0.75),
+                inset 0 1px 1px 0px rgba(255, 255, 255, 0.25);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .glass-card:hover {
-            transform: translateY(-8px) scale(1.01);
-            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-8px) scale(1.015);
+            border-color: rgba(170, 255, 0, 0.4);
             box-shadow:
-                0 40px 80px -20px rgba(0, 0, 0, 0.7),
-                inset 1px 1px 0px 0px rgba(255, 255, 255, 0.2);
+                0 40px 80px -15px rgba(0, 0, 0, 0.9),
+                0 0 40px rgba(170, 255, 0, 0.12),
+                inset 0 1px 1px 0px rgba(255, 255, 255, 0.3);
         }
 
         .glass-metric {
-            background: rgba(30, 30, 30, 0.4);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 20px 20px 60px rgba(0, 0, 0, 0.4);
-            transition: all 0.5s ease;
+            background: linear-gradient(135deg, rgba(20, 20, 20, 0.75) 0%, rgba(5, 5, 5, 0.95) 100%);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 
+                0 40px 90px rgba(0, 0, 0, 0.85),
+                inset 0 1px 1px rgba(255, 255, 255, 0.2);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .glass-metric:hover {
-            transform: translateY(-12px);
-            background: rgba(40, 40, 40, 0.5);
+            border-color: rgba(170, 255, 0, 0.5);
+            box-shadow: 
+                0 50px 100px rgba(0, 0, 0, 0.95),
+                0 0 50px rgba(170, 255, 0, 0.18),
+                inset 0 1px 1px rgba(255, 255, 255, 0.3);
         }
 
         .ambient-radial-glow {
@@ -544,29 +559,29 @@
     <!-- 1. Top Navigation -->
     <div class="fixed top-6 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
         <nav
-            class="pointer-events-auto max-w-[850px] w-full bg-[#111111]/70 backdrop-blur-xl border border-white/10 rounded-full px-6 py-3 flex items-center justify-between shadow-2xl">
+            class="pointer-events-auto max-w-[850px] w-full bg-black/60 backdrop-blur-xl border border-white/15 rounded-full px-6 py-3 flex items-center justify-between shadow-2xl transition-all duration-300 hover:border-white/25">
             <a href="#hero"
-                class="flex items-center gap-3 text-white font-bold text-base tracking-tight pointer-events-auto cursor-pointer hover:opacity-80 transition-opacity">
+                class="flex items-center gap-3 text-white font-bold text-base tracking-tight pointer-events-auto cursor-pointer hover:opacity-85 transition-opacity">
                 <img alt="Exfluent Logo" class="w-6 h-6 rounded-md"
                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSn66e7Z7-WblGQQfJ39Ib0ptCIvZ7nTuSxSpalq9f-lYq9nsMU5uzTtRy4a1TCyl7czO_J2F5cNN4fRD6NiG04V5LUFYFzj-gmAE4dqVHNIrdCLB9h5HLlO0lJ5kSqoEUYomXDnO7lV3Fcdv2kMdh-jm29erFqy-5Fn-4Vl6LH1cuCc5GAZ9DQeG7e_y5o-WA_3QJ9BpyrQQXp-8Zi6Ba_vkdmrMbta_D2AB-sRdyAcbzwDA9vZtkrVAMPngX2h-fwDEkICRO99e0">
                 <span class="text-sm font-semibold tracking-wide">Exfluent</span>
             </a>
             <div class="hidden md:flex items-center gap-6">
-                <a class="text-on-surface-variant/80 text-[11px] font-medium hover:text-white transition-colors uppercase tracking-wider"
+                <a class="text-white/60 text-[11px] font-bold hover:text-primary-fixed transition-colors uppercase tracking-wider"
                     href="#problem">Problem</a>
-                <a class="text-on-surface-variant/80 text-[11px] font-medium hover:text-white transition-colors uppercase tracking-wider"
+                <a class="text-white/60 text-[11px] font-bold hover:text-primary-fixed transition-colors uppercase tracking-wider"
                     href="#how-it-works">How It Works</a>
-                <a class="text-on-surface-variant/80 text-[11px] font-medium hover:text-white transition-colors uppercase tracking-wider"
+                <a class="text-white/60 text-[11px] font-bold hover:text-primary-fixed transition-colors uppercase tracking-wider"
                     href="#capabilities">Capabilities</a>
-                <a class="text-on-surface-variant/80 text-[11px] font-medium hover:text-white transition-colors uppercase tracking-wider"
+                <a class="text-white/60 text-[11px] font-bold hover:text-primary-fixed transition-colors uppercase tracking-wider"
                     href="#pricing">Pricing</a>
-                <a class="text-on-surface-variant/80 text-[11px] font-medium hover:text-white transition-colors uppercase tracking-wider"
+                <a class="text-white/60 text-[11px] font-bold hover:text-primary-fixed transition-colors uppercase tracking-wider"
                     href="#faq">FAQs</a>
             </div>
             <div class="flex items-center gap-4">
-                <a class="text-white text-[11px] font-semibold hover:text-primary-fixed transition-colors uppercase tracking-wider"
+                <a class="text-white/80 text-[11px] font-bold hover:text-white transition-colors uppercase tracking-wider"
                     href="#">Sign In</a>
-                <a class="bg-primary-fixed text-black text-[10px] font-bold px-4 py-2 rounded-full hover:bg-white transition-colors uppercase tracking-wider"
+                <a class="bg-primary-fixed text-black text-[10px] font-bold px-5 py-2.5 rounded-full hover:bg-white hover:scale-105 active:scale-95 transition-all uppercase tracking-wider shadow-[0_0_15px_rgba(170,255,0,0.15)]"
                     href="#">Start For Free</a>
             </div>
         </nav>
@@ -589,8 +604,16 @@
                 </div>
                 <!-- Headline -->
                 <h1 data-speed="0.85"
-                    class="text-[56px] md:text-[88px] font-bold text-center leading-[1.05] tracking-tighter mb-8 bg-gradient-to-b from-white to-gray-400 bg-clip-text text-transparent drop-shadow-sm">
-                    The Operating System for AI Productivity
+                    class="text-[56px] md:text-[88px] font-semibold tracking-tighter font-manrope leading-[1.1] mb-8 text-center">
+                    <span class="block text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-white/40">The Operating System</span>
+                    <span class="block text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-white/40">
+                        for <span class="text-primary-fixed inline-block relative">
+                            AI Productivity
+                            <svg class="absolute w-full h-3 -bottom-2 left-0 text-primary-fixed opacity-60" viewBox="0 0 100 10" preserveAspectRatio="none">
+                                <path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="2" fill="none" />
+                            </svg>
+                        </span>
+                    </span>
                 </h1>
                 <!-- Sub-headline -->
                 <p data-lag="0.15"
@@ -621,10 +644,14 @@
 
                 <!-- NEW AI STACK DASHBOARD -->
                 <div data-speed="0.95"
-                    class="w-full bg-[#0a0a0a]/80 backdrop-blur-2xl border border-white/5 rounded-[32px] p-8 shadow-2xl animate-fade-up opacity-0 relative overflow-hidden"
-                    style="animation-delay: 0.2s; box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 0 1px 0 0 rgba(170,255,0,0.3);">
+                    class="w-full bg-gradient-to-b from-surface/95 to-black/95 backdrop-blur-3xl border border-white/20 rounded-[32px] p-8 shadow-[0_40px_100px_rgba(0,0,0,0.9),_inset_0_1px_1px_rgba(255,255,255,0.25),_0_0_40px_rgba(170,255,0,0.1)] animate-fade-up opacity-0 relative overflow-hidden group/dashboard"
+                    style="animation-delay: 0.2s;">
+                    <!-- Ambient Corner Glows -->
+                    <div class="absolute -top-12 -left-12 w-36 h-36 bg-primary-fixed/25 rounded-full blur-3xl pointer-events-none transition-opacity duration-500 group-hover/dashboard:opacity-80"></div>
+                    <div class="absolute -bottom-12 -right-12 w-36 h-36 bg-purple/25 rounded-full blur-3xl pointer-events-none transition-opacity duration-500 group-hover/dashboard:opacity-80"></div>
+                    <!-- Internal Top Soft Glow -->
                     <div
-                        class="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-primary-fixed/5 to-transparent pointer-events-none -z-10">
+                        class="absolute top-0 left-0 w-full h-1/3 bg-gradient-to-b from-primary-fixed/10 to-transparent pointer-events-none -z-10">
                     </div>
                     <!-- Header -->
                     <div class="flex items-center justify-between mb-8">
@@ -1016,11 +1043,9 @@
                     <div
                         class="px-3 py-1 border border-magenta/20 bg-magenta/10 rounded-full text-[10px] uppercase font-bold text-magenta tracking-widest mb-6">
                         The Problem</div>
-                    <h2 class="text-[62px] font-black leading-tight tracking-tight mb-6">
+                    <h2 class="font-h1 text-h1-mobile md:text-[62px] mb-8 tracking-tighter leading-[0.95] text-white/80 backdrop-blur-sm bg-white/5 px-8 py-4 rounded-3xl border border-white/10 shadow-[inset_0_2px_4px_rgba(255,255,255,0.3),0_10px_20px_rgba(0,0,0,0.5),0_-2px_4px_rgba(0,0,0,0.3)] inline-block">
                         <span class="text-white">Every second you wait,</span><br>
-                        <span class="text-magenta" style="text-shadow: rgba(255, 45, 120, 0.4) 0px 0px 50px;">you're
-                            bleeding
-                            money.</span>
+                        <span class="text-magenta" style="text-shadow: rgba(255, 45, 120, 0.4) 0px 0px 50px;">you're bleeding money.</span>
                     </h2>
                     <p class="text-[17px] text-[#666666] max-w-[540px] font-medium leading-relaxed">
                         The average developer pays for 6 AI tools. Uses 2. Wastes $1,200/year...
@@ -1202,8 +1227,8 @@
             <main id="how-it-works"
                 class="flex-grow pt-32 pb-section-gap px-margin-mobile md:px-gutter max-w-container-max mx-auto w-full border-b border-white/5">
                 <div class="text-center mb-16">
-                    <h1 class="font-h1 text-h1-mobile md:text-h1 mb-4 tracking-tighter"
-                        style="color: #AAFF00; text-shadow: 0 0 20px rgba(170,255,0,0.2); font-weight: 900; letter-spacing: -0.05em;">
+                    <h1
+                        class="font-h1 text-h1-mobile md:text-[84px] mb-8 tracking-tighter leading-[0.95] text-white/80 backdrop-blur-sm bg-white/5 px-8 py-4 rounded-3xl border border-white/10 shadow-[inset_0_2px_4px_rgba(255,255,255,0.3),0_10px_20px_rgba(0,0,0,0.5),0_-2px_4px_rgba(0,0,0,0.3)] inline-block">
                         How It Works</h1>
                     <p
                         class="font-sub-headline text-sub-headline max-w-2xl mx-auto bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-500 font-medium">
@@ -1428,9 +1453,7 @@
                         </div>
                     </div>
                 </div>
-            </main>
-
-            <!-- 3. Capabilities Section -->
+                     <!-- 3. Capabilities Section -->
             <main id="capabilities"
                 class="flex-grow pt-32 pb-section-gap relative z-10 bg-grid bg-grid-pattern border-b border-white/5">
                 <div class="max-w-container-max mx-auto px-margin-mobile md:px-gutter">
@@ -1443,210 +1466,263 @@
                                 class="font-mono-data text-mono-data text-on-surface-variant uppercase tracking-widest">Core
                                 Capabilities</span>
                         </div>
-                        <h1 class="font-h1-mobile md:font-h1 text-h1-mobile md:text-h1 text-primary mb-6">Everything you
-                            need to
-                            <span class="text-exfluent-lime">control</span> your AI spend
-                        </h1>
+                        <h1
+                            class="font-h1 text-h1-mobile md:text-[84px] mb-8 tracking-tighter leading-[0.95] text-white/80 backdrop-blur-sm bg-white/5 px-8 py-4 rounded-3xl border border-white/10 shadow-[inset_0_2px_4px_rgba(255,255,255,0.3),0_10px_20px_rgba(0,0,0,0.5),0_-2px_4px_rgba(0,0,0,0.3)] inline-block">
+                            Everything you need to <span class="text-exfluent-lime">control</span> your AI spend</h1>
                         <p class="font-sub-headline text-sub-headline text-on-surface-variant">Stop bleeding capital on
                             overlapping AI tools. Track, analyze, and optimize your entire stack in real-time with
                             military
                             precision.</p>
                     </div>
                     <!-- Bento Grid -->
-                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 auto-rows-[minmax(200px,auto)]">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 auto-rows-[minmax(220px,auto)]">
                         <!-- Card 1: Live Spend Tracker (2x2) -->
                         <div
-                            class="glass-card rounded-lg p-6 md:col-span-2 md:row-span-2 flex flex-col justify-between animate-on-scroll delay-100 group is-visible">
-                            <div>
-                                <h3 class="font-h2 text-h2 text-primary mb-2">Live Spend Tracker</h3>
-                                <p class="text-on-surface-variant font-body">Real-Time Telemetry and every ai tool
-                                    subscription
-                                </p>
-                            </div>
-                            <div class="mt-8 flex flex-col items-center justify-center relative">
-                                <div class="text-center glow-lime rounded-full p-8">
-                                    <span class="font-h1 text-h1 text-exfluent-lime block" id="live-counter"
-                                        data-target="11070" style="opacity: 0;">11070.12</span>
-                                    <span
-                                        class="font-mono-data text-mono-data text-on-surface-variant uppercase mt-2 block tracking-widest">Total
-                                        Yearly Burn</span>
+                            class="glass-card rounded-[24px] p-8 md:col-span-2 md:row-span-2 flex flex-col justify-between animate-on-scroll delay-100 group is-visible relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-48 h-48 bg-exfluent-lime/5 rounded-full blur-3xl pointer-events-none"></div>
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <span class="font-mono-data text-xs text-exfluent-lime uppercase tracking-widest">Module 01</span>
+                                    <h3 class="font-h2 text-3xl text-primary font-black mt-1">Live Spend Tracker</h3>
+                                    <p class="text-on-surface-variant font-body text-sm mt-1">Real-time cost telemetry and usage mapping.</p>
                                 </div>
-                                <div class="grid grid-cols-3 gap-4 w-full mt-8 border-t border-exfluent-border pt-6">
-                                    <div class="text-center"><span
-                                            class="block text-on-surface-variant font-mono-data mb-1">Total AI
-                                            Cost</span><span class="font-h2 text-h2 text-primary">$193</span></div>
-                                    <div class="text-center border-l border-r border-exfluent-border"><span
-                                            class="block text-on-surface-variant font-mono-data mb-1">Optimized</span><span
-                                            class="font-h2 text-h2 text-exfluent-purple">$101</span></div>
-                                    <div class="text-center"><span
-                                            class="block text-on-surface-variant font-mono-data mb-1">Waste</span><span
-                                            class="font-h2 text-h2 text-primary">$92</span></div>
+                                <div class="w-10 h-10 rounded-xl bg-exfluent-lime/10 border border-exfluent-lime/30 flex items-center justify-center text-exfluent-lime">
+                                    <span class="material-symbols-outlined">analytics</span>
                                 </div>
                             </div>
-                            <div
-                                class="mt-6 bg-exfluent-lime/10 border border-exfluent-lime/20 rounded p-3 flex items-center gap-3">
-                                <span class="material-symbols-outlined text-exfluent-lime"
-                                    data-icon="warning">warning</span>
-                                <span class="font-mono-data text-exfluent-lime">ALERT: Unusual spike in Anthropic API
-                                    usage
-                                    detected across Dev Team.</span>
+                            
+                            <!-- High-Tech Spend Gauge -->
+                            <div class="my-10 flex flex-col items-center justify-center relative">
+                                <div class="relative w-56 h-56 flex items-center justify-center">
+                                    <!-- Glow Rings -->
+                                    <div class="absolute inset-0 rounded-full border border-exfluent-lime/10 animate-[ping_4s_linear_infinite] pointer-events-none"></div>
+                                    <!-- SVG Circular Gauge -->
+                                    <svg class="absolute w-full h-full transform -rotate-90" viewBox="0 0 200 200">
+                                        <circle cx="100" cy="100" r="80" stroke="rgba(255, 255, 255, 0.03)" stroke-width="8" fill="transparent" />
+                                        <circle cx="100" cy="100" r="80" stroke="#AAFF00" stroke-width="8" fill="transparent" 
+                                                stroke-dasharray="502" stroke-dashoffset="150" stroke-linecap="round"
+                                                class="drop-shadow-[0_0_8px_rgba(170,255,0,0.5)]" />
+                                    </svg>
+                                    <div class="text-center z-10">
+                                        <span class="text-[38px] font-mono-data font-black text-exfluent-lime leading-none block" id="live-counter" data-target="11070">$11,070.00</span>
+                                        <span class="font-mono-data text-[10px] text-on-surface-variant uppercase mt-1 block tracking-wider">Total Yearly Burn</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="grid grid-cols-3 gap-6 w-full mt-8 border-t border-white/10 pt-6">
+                                    <div class="text-center">
+                                        <span class="block text-on-surface-variant text-[10px] font-mono-data uppercase tracking-wider mb-1">Total Cost</span>
+                                        <span class="font-mono-data text-lg font-bold text-white">$193/mo</span>
+                                    </div>
+                                    <div class="text-center border-x border-white/10">
+                                        <span class="block text-on-surface-variant text-[10px] font-mono-data uppercase tracking-wider mb-1">Optimized</span>
+                                        <span class="font-mono-data text-lg font-bold text-exfluent-purple">$101/mo</span>
+                                    </div>
+                                    <div class="text-center">
+                                        <span class="block text-on-surface-variant text-[10px] font-mono-data uppercase tracking-wider mb-1">Waste</span>
+                                        <span class="font-mono-data text-lg font-bold text-exfluent-pink">$92/mo</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-exfluent-pink/10 border border-exfluent-pink/20 rounded-xl p-4 flex items-start gap-3 relative overflow-hidden">
+                                <div class="absolute inset-y-0 left-0 w-1 bg-exfluent-pink"></div>
+                                <span class="material-symbols-outlined text-exfluent-pink text-sm mt-0.5 animate-pulse">warning</span>
+                                <span class="font-mono-data text-xs text-exfluent-pink leading-relaxed">ALERT: Redundant OpenAI seat detected in Marketing Department.</span>
                             </div>
                         </div>
+
                         <!-- Card 2: Overlap Detector (1x2) -->
                         <div
-                            class="glass-card rounded-lg p-6 md:col-span-1 md:row-span-2 flex flex-col justify-between animate-on-scroll delay-200 is-visible">
+                            class="glass-card rounded-[24px] p-6 md:col-span-1 md:row-span-2 flex flex-col justify-between animate-on-scroll delay-200 is-visible relative overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-t from-exfluent-pink/5 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
                             <div>
-                                <h3 class="font-sub-headline text-sub-headline text-primary font-bold mb-1">Overlap
-                                    Detector
-                                </h3>
-                                <p class="text-on-surface-variant text-sm">Identify redundant tool capabilities
-                                    instantly.</p>
+                                <span class="font-mono-data text-xs text-exfluent-pink uppercase tracking-widest">Module 02</span>
+                                <h3 class="font-h2 text-xl text-primary font-bold mt-1">Overlap Detector</h3>
+                                <p class="text-on-surface-variant text-xs mt-1">Flag cross-tool capabilities.</p>
                             </div>
-                            <div class="flex-grow flex flex-col justify-center items-center relative py-8">
-                                <div
-                                    class="w-full bg-[#1A1A1A] border border-exfluent-border rounded p-3 mb-2 z-10 relative text-center">
-                                    <span class="block font-bold text-primary text-sm">ChatGPT Plus</span>
+                            
+                            <!-- Glowing Overlap Graph -->
+                            <div class="flex-grow flex flex-col justify-center items-center relative py-10">
+                                <!-- Interactive Venn Overlap visual -->
+                                <div class="relative w-44 h-24 flex items-center justify-center mb-8">
+                                    <div class="absolute left-2 w-20 h-20 rounded-full bg-white/5 border border-white/20 flex items-center justify-center shadow-lg">
+                                        <span class="text-[9px] font-mono-data text-white/60">ChatGPT</span>
+                                    </div>
+                                    <div class="absolute right-2 w-20 h-20 rounded-full bg-exfluent-pink/10 border border-exfluent-pink/30 flex items-center justify-center shadow-lg">
+                                        <span class="text-[9px] font-mono-data text-exfluent-pink">Claude</span>
+                                    </div>
+                                    <div class="absolute z-10 w-12 h-12 rounded-full bg-black/90 border border-exfluent-pink flex items-center justify-center shadow-[0_0_15px_rgba(255,45,120,0.5)]">
+                                        <span class="text-[9px] font-bold font-mono-data text-exfluent-pink text-center leading-none">85%<br>Match</span>
+                                    </div>
                                 </div>
-                                <div
-                                    class="w-full bg-[#1A1A1A] border border-exfluent-border rounded p-3 mb-2 z-10 relative text-center">
-                                    <span class="block font-bold text-primary text-sm">Claude Pro</span>
+
+                                <div class="w-full space-y-2.5">
+                                    <div class="w-full bg-[#161616]/90 border border-white/10 rounded-xl p-3 flex justify-between items-center group/item hover:border-exfluent-pink transition-colors">
+                                        <span class="font-bold text-white text-xs">ChatGPT Plus</span>
+                                        <span class="font-mono-data text-[9px] bg-exfluent-lime/20 text-exfluent-lime px-2 py-0.5 rounded-full uppercase">Keep</span>
+                                    </div>
+                                    <div class="w-full bg-[#161616]/90 border border-white/10 rounded-xl p-3 flex justify-between items-center group/item hover:border-exfluent-pink transition-colors">
+                                        <span class="font-bold text-white text-xs">Claude Pro</span>
+                                        <span class="font-mono-data text-[9px] bg-exfluent-pink/20 text-exfluent-pink px-2 py-0.5 rounded-full uppercase">Purge</span>
+                                    </div>
+                                    <div class="w-full bg-[#161616]/90 border border-white/10 rounded-xl p-3 flex justify-between items-center opacity-40">
+                                        <span class="font-bold text-white text-xs">Jasper AI</span>
+                                        <span class="font-mono-data text-[9px] text-exfluent-pink">Cancelled</span>
+                                    </div>
                                 </div>
-                                <div class="absolute inset-0 flex items-center justify-center pointer-events-none"><svg
-                                        class="w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 200">
-                                        <line class="pulse-line" stroke="#FF2D78" stroke-width="2" x1="50" x2="50"
-                                            y1="20" y2="180"></line>
-                                    </svg>
-                                    <div
-                                        class="absolute bg-exfluent-surface border border-exfluent-pink text-exfluent-pink font-mono-data text-xs px-2 py-1 rounded-full uppercase z-20 shadow-[0_0_10px_rgba(255,45,120,0.3)]">
-                                        85% Overlap</div>
-                                </div>
-                                <div
-                                    class="w-full bg-[#1A1A1A] border border-exfluent-border rounded p-3 mb-2 z-10 relative text-center opacity-80">
-                                    <span class="block font-bold text-primary text-sm">Notion AI</span>
-                                </div>
-                                <div
-                                    class="w-full bg-[#1A1A1A] border border-exfluent-border rounded p-3 mb-2 z-10 relative text-center opacity-60">
-                                    <span class="block font-bold text-primary text-sm">Gemini Adv</span>
-                                </div>
-                                <div
-                                    class="w-full bg-[#1A1A1A] border border-exfluent-border rounded p-3 z-10 relative text-center opacity-40">
-                                    <span class="block font-bold text-primary text-sm">Jasper AI</span><span
-                                        class="block text-[10px] text-exfluent-pink mt-1 font-mono-data uppercase">Recommendation:
-                                        Cancel</span>
-                                </div>
+                            </div>
+                            
+                            <div class="border-t border-white/10 pt-4 flex justify-between items-center">
+                                <span class="text-[10px] font-mono-data text-on-surface-variant uppercase">Potential Savings</span>
+                                <span class="font-mono-data text-sm font-bold text-exfluent-pink">-$240/yr</span>
                             </div>
                         </div>
+
                         <!-- Card 3: ROI Calculator (1x1) -->
                         <div
-                            class="glass-card rounded-lg p-6 md:col-span-1 md:row-span-1 animate-on-scroll delay-300 flex flex-col is-visible">
-                            <h3 class="font-sub-headline text-sub-headline text-primary font-bold mb-4">ROI Calculator
-                            </h3>
-                            <div class="space-y-3 flex-grow">
-                                <div class="flex items-center justify-between border-b border-exfluent-border pb-2">
-                                    <span class="text-sm text-on-surface-variant font-mono-data">Hourly Rate</span><span
-                                        class="font-mono-data text-primary">$10/hr</span></div>
-                                <div class="flex items-center justify-between border-b border-exfluent-border pb-2">
-                                    <span class="text-sm text-on-surface-variant font-mono-data">Time Saved</span><span
-                                        class="font-mono-data text-primary">20 hrs/mo</span></div>
-                                <div class="pt-4 text-center"><span
-                                        class="block text-xs text-on-surface-variant uppercase tracking-widest mb-1">Monthly
-                                        Value</span><span class="font-h2 text-h2 text-exfluent-lime"
-                                        id="roi-result">$1,000</span></div>
+                            class="glass-card rounded-[24px] p-6 md:col-span-1 md:row-span-1 animate-on-scroll delay-300 flex flex-col justify-between is-visible relative overflow-hidden">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <span class="font-mono-data text-xs text-exfluent-purple uppercase tracking-widest">Module 03</span>
+                                    <h3 class="font-h2 text-lg text-primary font-bold mt-0.5">ROI Calculator</h3>
+                                </div>
+                                <span class="material-symbols-outlined text-exfluent-purple">calculate</span>
+                            </div>
+                            
+                            <div class="space-y-2.5 flex-grow justify-center flex flex-col">
+                                <div class="flex items-center justify-between border-b border-white/15 pb-2">
+                                    <span class="text-xs text-on-surface-variant font-mono-data">Developer Rate</span>
+                                    <span class="font-mono-data text-xs text-white">$45/hr</span>
+                                </div>
+                                <div class="flex items-center justify-between border-b border-white/15 pb-2">
+                                    <span class="text-xs text-on-surface-variant font-mono-data">Time Reclaimed</span>
+                                    <span class="font-mono-data text-xs text-white">16 hrs/mo</span>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-exfluent-purple/10 border border-exfluent-purple/20 rounded-xl p-3 mt-4 text-center">
+                                <span class="block text-[9px] text-on-surface-variant uppercase tracking-widest mb-0.5">Efficiency Value</span>
+                                <span class="font-mono-data text-xl font-bold text-exfluent-lime" id="roi-result">$1,000</span>
                             </div>
                         </div>
+
                         <!-- Card 4: Browser Extension (1x1) -->
                         <div
-                            class="glass-card rounded-lg p-6 md:col-span-1 md:row-span-1 animate-on-scroll delay-400 overflow-hidden relative group is-visible">
-                            <h3 class="font-sub-headline text-sub-headline text-primary font-bold mb-2 relative z-10">
-                                Extension
-                            </h3>
-                            <p class="text-xs text-on-surface-variant mb-4 relative z-10">Auto-detect shadows IT.</p>
-                            <div
-                                class="absolute right-0 bottom-0 translate-x-4 translate-y-4 group-hover:-translate-y-2 group-hover:-translate-x-2 transition-transform duration-500">
-                                <div
-                                    class="bg-exfluent-surface border border-exfluent-border p-3 rounded shadow-2xl transform -rotate-6 w-48">
-                                    <div class="flex items-center gap-2 border-b border-exfluent-border pb-2 mb-2">
-                                        <span class="material-symbols-outlined text-xs text-exfluent-lime"
-                                            data-icon="check_circle" data-weight="fill">check_circle</span>
-                                        <span class="text-xs text-primary font-mono-data">Midjourney Active</span>
-                                    </div>
-                                    <div class="flex items-center gap-2">
-                                        <span class="material-symbols-outlined text-xs text-exfluent-lime"
-                                            data-icon="check_circle" data-weight="fill">check_circle</span>
-                                        <span class="text-xs text-primary font-mono-data">Copilot Active</span>
-                                                                        <div class="flex items-center gap-2">
-                                        <span class="material-symbols-outlined text-xs text-exfluent-lime"
-                                            data-icon="check_circle" data-weight="fill">check_circle</span>
-                                        <span class="text-xs text-primary font-mono-data">Claude DownGrade</span>
-                                    </div>
-                                    </div>
+                            class="glass-card rounded-[24px] p-6 md:col-span-1 md:row-span-1 animate-on-scroll delay-400 overflow-hidden relative group is-visible flex flex-col justify-between">
+                            <div class="absolute inset-0 bg-gradient-to-br from-exfluent-purple/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                            <div>
+                                <div class="flex justify-between items-start">
+                                    <h3 class="font-sub-headline text-sm text-primary font-bold">Smart Extension</h3>
+                                    <span class="w-2.5 h-2.5 rounded-full bg-exfluent-lime shadow-[0_0_8px_#AAFF00]"></span>
+                                </div>
+                                <p class="text-[11px] text-on-surface-variant mt-1">Intercept Shadow AI automatically.</p>
+                            </div>
+                            
+                            <!-- Browser Pop Mockup -->
+                            <div class="relative h-20 mt-4 overflow-hidden rounded-lg border border-white/10 bg-black/90 p-2 shadow-2xl transition-transform duration-500 group-hover:scale-[1.03]">
+                                <div class="flex items-center gap-1 mb-2 border-b border-white/10 pb-1.5">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-exfluent-pink"></div>
+                                    <div class="w-1.5 h-1.5 rounded-full bg-yellow-500"></div>
+                                    <div class="w-1.5 h-1.5 rounded-full bg-exfluent-lime"></div>
+                                    <span class="text-[8px] text-white/40 font-mono-data ml-1.5">exfluent_agent_v1.0</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-[10px] text-exfluent-lime">check_circle</span>
+                                    <span class="text-[9px] text-white font-mono-data truncate">Anthropic Key Intercepted</span>
                                 </div>
                             </div>
                         </div>
+
                         <!-- Card 5: Team Dashboard (2x1) -->
                         <div
-                            class="glass-card rounded-lg p-0 md:col-span-2 md:row-span-1 animate-on-scroll delay-500 overflow-hidden flex flex-col is-visible">
-                            <div class="p-6 pb-2">
-                                <h3 class="font-sub-headline text-sub-headline text-primary font-bold">Team Oversight
-                                </h3>
+                            class="glass-card rounded-[24px] p-0 md:col-span-2 md:row-span-1 animate-on-scroll delay-500 overflow-hidden flex flex-col is-visible relative">
+                            <div class="p-6 pb-3 flex justify-between items-center border-b border-white/10">
+                                <div>
+                                    <span class="font-mono-data text-xs text-exfluent-purple uppercase tracking-widest">Module 05</span>
+                                    <h3 class="font-sub-headline text-lg text-primary font-bold mt-0.5">Team Oversight</h3>
+                                </div>
+                                <span class="font-mono-data text-[9px] bg-exfluent-purple/20 text-exfluent-purple px-2 py-1 rounded-full uppercase tracking-wider">4 Seats Monitored</span>
                             </div>
+                            
                             <div class="w-full flex-grow overflow-x-auto">
                                 <table class="w-full text-left border-collapse">
                                     <thead>
-                                        <tr class="border-y border-exfluent-border bg-[#1A1A1A]">
-                                            <th
-                                                class="py-2 px-6 font-mono-data text-xs text-on-surface-variant uppercase tracking-wider">
-                                                User</th>
-                                            <th
-                                                class="py-2 px-6 font-mono-data text-xs text-on-surface-variant uppercase tracking-wider">
-                                                Active Tools</th>
-                                            <th
-                                                class="py-2 px-6 font-mono-data text-xs text-on-surface-variant uppercase tracking-wider text-right">
-                                                SAVE/MO</th>
+                                        <tr class="bg-white/[0.02]">
+                                            <th class="py-2.5 px-6 font-mono-data text-[10px] text-on-surface-variant uppercase tracking-wider">User</th>
+                                            <th class="py-2.5 px-6 font-mono-data text-[10px] text-on-surface-variant uppercase tracking-wider text-center">Active Seats</th>
+                                            <th class="py-2.5 px-6 font-mono-data text-[10px] text-on-surface-variant uppercase tracking-wider text-right">Leak Cancelled</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="font-mono-data text-sm">
-                                        <tr
-                                            class="border-b border-exfluent-border/50 hover:bg-[#1A1A1A] transition-colors">
-                                            <td class="py-3 px-6 text-primary flex items-center gap-2">
+                                    <tbody class="font-mono-data text-xs">
+                                        <tr class="border-b border-white/10 hover:bg-white/[0.02] transition-colors">
+                                            <td class="py-3 px-6 text-white flex items-center gap-2">
                                                 <img class="w-6 h-6 rounded-full object-cover border border-white/10 ring-2 ring-exfluent-purple/10"
                                                     src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=facearea&facepad=2&w=128&h=128&q=80"
                                                     alt="Alex S.">Alex S.
                                             </td>
-                                            <td class="py-3 px-6 text-on-surface-variant">4</td>
-                                            <td class="py-3 px-6 text-right text-primary">$80</td>
+                                            <td class="py-3 px-6 text-center text-on-surface-variant">4</td>
+                                            <td class="py-3 px-6 text-right text-exfluent-lime font-bold">-$80/mo</td>
                                         </tr>
-                                        <tr
-                                            class="border-b border-exfluent-border/50 hover:bg-[#1A1A1A] transition-colors">
-                                            <td class="py-3 px-6 text-primary flex items-center gap-2">
+                                        <tr class="border-b border-white/10 hover:bg-white/[0.02] transition-colors">
+                                            <td class="py-3 px-6 text-white flex items-center gap-2">
                                                 <img class="w-6 h-6 rounded-full object-cover border border-white/10 ring-2 ring-exfluent-lime/10"
                                                     src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=facearea&facepad=2&w=128&h=128&q=80"
                                                     alt="Taylor K.">Taylor K.
                                             </td>
-                                            <td class="py-3 px-6 text-on-surface-variant">2</td>
-                                            <td class="py-3 px-6 text-right text-primary">$120</td>
+                                            <td class="py-3 px-6 text-center text-on-surface-variant">2</td>
+                                            <td class="py-3 px-6 text-right text-exfluent-lime font-bold">-$120/mo</td>
                                         </tr>
-                                        <tr
-                                            class="border-b border-exfluent-border/50 hover:bg-[#1A1A1A] transition-colors">
-                                            <td class="py-3 px-6 text-primary flex items-center gap-2">
+                                        <tr class="hover:bg-white/[0.02] transition-colors">
+                                            <td class="py-3 px-6 text-white flex items-center gap-2">
                                                 <img class="w-6 h-6 rounded-full object-cover border border-white/10 ring-2 ring-exfluent-purple/10"
                                                     src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=facearea&facepad=2&w=128&h=128&q=80"
                                                     alt="Jordan M.">Jordan M.
                                             </td>
-                                            <td class="py-3 px-6 text-on-surface-variant">5</td>
-                                            <td class="py-3 px-6 text-right text-primary">$210</td>
-                                        </tr>
-                                        <tr class="hover:bg-[#1A1A1A] transition-colors">
-                                            <td class="py-3 px-6 text-primary flex items-center gap-2">
-                                                <img class="w-6 h-6 rounded-full object-cover border border-white/10 ring-2 ring-exfluent-lime/10"
-                                                    src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=facearea&facepad=2&w=128&h=128&q=80"
-                                                    alt="Casey L.">Casey L.
-                                            </td>
-                                            <td class="py-3 px-6 text-on-surface-variant">3</td>
-                                            <td class="py-3 px-6 text-right text-primary">$95</td>
+                                            <td class="py-3 px-6 text-center text-on-surface-variant">5</td>
+                                            <td class="py-3 px-6 text-right text-exfluent-lime font-bold">-$210/mo</td>
                                         </tr>
                                     </tbody>
                                 </table>
+                            </div>
+                        </div>
+                        <!-- Card 6: Optimization Autopilot (2x1) -->
+                        <div
+                            class="glass-card rounded-[24px] p-6 md:col-span-2 md:row-span-1 animate-on-scroll delay-600 overflow-hidden flex flex-col justify-between is-visible relative">
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-exfluent-lime/5 rounded-full blur-2xl pointer-events-none"></div>
+                            <div class="flex justify-between items-center border-b border-white/10 pb-3 mb-4">
+                                <div>
+                                    <span class="font-mono-data text-xs text-exfluent-lime uppercase tracking-widest">Module 06</span>
+                                    <h3 class="font-sub-headline text-lg text-primary font-bold mt-0.5">Optimization Autopilot</h3>
+                                </div>
+                                <div class="flex items-center gap-2 bg-exfluent-lime/10 border border-exfluent-lime/20 px-2 py-1 rounded-full">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-exfluent-lime animate-pulse"></span>
+                                    <span class="text-[9px] font-bold text-exfluent-lime tracking-wider uppercase">Active</span>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-3 flex-grow justify-center flex flex-col">
+                                <div class="flex items-center justify-between text-xs bg-white/[0.02] border border-white/10 rounded-xl p-3">
+                                    <div class="flex items-center gap-3">
+                                        <span class="material-symbols-outlined text-exfluent-lime text-base">check_circle</span>
+                                        <span class="text-white">Downgrade 2 inactive Claude Pro seats</span>
+                                    </div>
+                                    <span class="font-mono-data text-[10px] text-exfluent-lime font-bold">Saved $40/mo</span>
+                                </div>
+                                <div class="flex items-center justify-between text-xs bg-white/[0.02] border border-white/10 rounded-xl p-3">
+                                    <div class="flex items-center gap-3">
+                                        <span class="material-symbols-outlined text-exfluent-purple text-base">hourglass_empty</span>
+                                        <span class="text-white">Consolidate 3 Notion AI overlapping seats</span>
+                                    </div>
+                                    <span class="font-mono-data text-[10px] text-exfluent-purple font-bold">Pending Approval</span>
+                                </div>
+                                <div class="flex items-center justify-between text-xs bg-white/[0.02] border border-white/10 rounded-xl p-3">
+                                    <div class="flex items-center gap-3">
+                                        <span class="material-symbols-outlined text-exfluent-pink text-base">security</span>
+                                        <span class="text-white">Capped Midjourney spend for marketing</span>
+                                    </div>
+                                    <span class="font-mono-data text-[10px] text-exfluent-pink font-bold">Auto-Capped</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1810,55 +1886,58 @@
                         </div>
                         <!-- CARD: TEAM -->
                         <div
-                            class="reveal-card glass-panel rounded-3xl p-10 flex flex-col group relative overflow-hidden visible">
-                            <div class="refraction-edge"></div>
+                            class="reveal-card glass-panel rounded-3xl p-10 flex flex-col group relative overflow-hidden bg-gradient-to-b from-[#130722]/80 to-[#080310]/95 border-purple/30 shadow-[0_30px_70px_rgba(168,85,247,0.08)] z-10 hover:border-purple/50 transition-all visible">
+                            <div class="refraction-edge bg-purple/40"></div>
+                            <div
+                                class="absolute top-6 right-8 bg-purple text-white font-label-caps py-1 px-3 text-[9px] font-black uppercase tracking-widest rounded shadow-[0_0_15px_rgba(168,85,247,0.4)]">
+                                Multi-seat admin</div>
                             <div class="mb-12">
                                 <span
-                                    class="font-label-caps text-white/40 tracking-[0.2em] text-[11px] mb-8 block"><br></span>
+                                    class="font-label-caps text-purple tracking-[0.2em] text-[11px] mb-8 block"><br></span>
                                 <h3 class="font-h2 text-white text-[48px] mb-4">Team</h3>
                                 <div class="flex items-baseline gap-1">
-                                    <span class="font-h2 text-white/50 text-[24px]">$</span>
+                                    <span class="font-h2 text-purple text-[24px]">$</span>
                                     <span class="font-h2 text-white text-[56px]" data-annual="12.49"
                                         data-monthly="19.99" id="price-team">12.49</span>
                                     <span class="text-white/30 font-mono-data text-[12px] uppercase">/month</span>
                                 </div>
-                                <p class="text-white/50 mt-6 text-[14px] leading-relaxed">Prevents team waste.
+                                <p class="text-white/60 mt-6 text-[14px] leading-relaxed">Prevents team waste.
                                     Corporate-grade
                                     oversight.</p>
                             </div>
                             <div class="flex-grow space-y-5 mb-12">
                                 <div class="flex items-center gap-3"><span
-                                        class="material-symbols-outlined text-[14px] text-white/40">star</span><span
-                                        class="text-body text-[14px] text-white/70">All Pro features</span></div>
+                                        class="material-symbols-outlined text-[16px] text-purple">star</span><span
+                                        class="text-body text-[14px] text-white font-bold">All Pro features</span></div>
                                 <div class="flex items-center gap-3"><span
-                                        class="material-symbols-outlined text-[14px] text-white/40">groups</span><span
-                                        class="text-body text-[14px] text-white/70">Team admin dashboard</span></div>
+                                        class="material-symbols-outlined text-[16px] text-purple">groups</span><span
+                                        class="text-body text-[14px] text-white">Team admin dashboard</span></div>
                                 <div class="flex items-center gap-3"><span
-                                        class="material-symbols-outlined text-[14px] text-white/40">account_balance_wallet</span><span
-                                        class="text-body text-[14px] text-white/70">Per-user budgets</span></div>
+                                        class="material-symbols-outlined text-[16px] text-purple">account_balance_wallet</span><span
+                                        class="text-body text-[14px] text-white">Per-user budgets</span></div>
                                 <div class="flex items-center gap-3"><span
-                                        class="material-symbols-outlined text-[14px] text-white/40">shield</span><span
-                                        class="text-body text-[14px] text-white/70">Shadow AI detection</span></div>
+                                        class="material-symbols-outlined text-[16px] text-purple">shield</span><span
+                                        class="text-body text-[14px] text-white font-medium">Shadow AI detection</span></div>
                                 <div class="flex items-center gap-3"><span
-                                        class="material-symbols-outlined text-[14px] text-white/40">vpn_key</span><span
-                                        class="text-body text-[14px] text-white/70">Policy enforcement engine</span>
+                                        class="material-symbols-outlined text-[16px] text-purple">vpn_key</span><span
+                                        class="text-body text-[14px] text-white">Policy enforcement engine</span>
                                 </div>
                                 <div class="flex items-center gap-3"><span
-                                        class="material-symbols-outlined text-[14px] text-white/40">file_export</span><span
-                                        class="text-body text-[14px] text-white/70">Team-wide exports</span></div>
+                                        class="material-symbols-outlined text-[16px] text-purple">file_export</span><span
+                                        class="text-body text-[14px] text-white">Team-wide exports</span></div>
                                 <div class="flex items-center gap-3"><span
-                                        class="material-symbols-outlined text-[14px] text-white/40">handshake</span><span
-                                        class="text-body text-[14px] text-white/70">Custom onboarding</span></div>
+                                        class="material-symbols-outlined text-[16px] text-purple">handshake</span><span
+                                        class="text-body text-[14px] text-white">Custom onboarding</span></div>
                                 <div class="flex items-center gap-3"><span
-                                        class="material-symbols-outlined text-[14px] text-white/40">gavel</span><span
-                                        class="text-body text-[14px] text-white/70">Dedicated priority support</span>
+                                        class="material-symbols-outlined text-[16px] text-purple">gavel</span><span
+                                        class="text-body text-[14px] text-white">Dedicated priority support</span>
                                 </div>
                                 <div class="flex items-center gap-3"><span
-                                        class="material-symbols-outlined text-[14px] text-white/40">savings</span><span
-                                        class="text-body text-[14px] text-white/70">Prevents team waste</span></div>
+                                        class="material-symbols-outlined text-[16px] text-purple">savings</span><span
+                                        class="text-body text-[14px] text-white">Prevents team waste</span></div>
                             </div>
                             <button
-                                class="w-full py-5 rounded-2xl bg-white/5 border border-white/10 font-label-caps hover:bg-white hover:text-black transition-all uppercase tracking-[0.2em] text-[11px] font-black">Start
+                                class="w-full py-5 rounded-2xl bg-purple text-white font-label-caps hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(168,85,247,0.5)] transition-all uppercase tracking-[0.2em] text-[12px] font-black shadow-[0_0_20px_rgba(168,85,247,0.2)]">Start
                                 Team Trial</button>
                         </div>
                     </div>
@@ -1879,7 +1958,7 @@
                                 class="font-label-caps text-label-caps text-primary-fixed mb-4 block uppercase tracking-widest">Validated
                                 Performance</span>
                             <h1
-                                class="font-h1-mobile md:font-h1 text-h1-mobile md:text-h1 text-on-surface uppercase leading-none tracking-tight drop-shadow-2xl">
+                                class="font-h1 text-h1-mobile md:text-[54px] mb-8 tracking-tighter leading-[0.95] text-white/80 backdrop-blur-sm bg-white/5 px-8 py-4 rounded-3xl border border-white/10 shadow-[inset_0_2px_4px_rgba(255,255,255,0.3),0_10px_20px_rgba(0,0,0,0.5),0_-2px_4px_rgba(0,0,0,0.3)] inline-block">
                                 See what <span class="text-primary-fixed drop-shadow-[0_0_25px_rgba(166,250,0,0.6)]"
                                     style="background: linear-gradient(rgb(170, 255, 0) 0%, rgb(119, 187, 0) 100%) text; -webkit-text-fill-color: transparent;">Exfluent</span>
                                 users are saying</h1>
@@ -2114,9 +2193,8 @@
                                 to know</span>
                         </div>
                         <h1
-                            class="font-h2 text-[48px] md:text-h2 text-primary font-extrabold tracking-tighter leading-tight">
-                            Frequently asked questions
-                        </h1>
+                            class="font-h1 text-h1-mobile md:text-[62px] mb-8 tracking-tighter leading-[0.95] text-white/80 backdrop-blur-sm bg-white/5 px-8 py-4 rounded-3xl border border-white/10 shadow-[inset_0_2px_4px_rgba(255,255,255,0.3),0_10px_20px_rgba(0,0,0,0.5),0_-2px_4px_rgba(0,0,0,0.3)] inline-block">
+                            Frequently asked questions</h1>
                     </div>
                     <!-- FAQ Accordion -->
                     <div class="border-t border-outline-variant">
@@ -2292,6 +2370,45 @@
                 </div>
             </section>
 
+            <!-- Contact Section -->
+            <main id="contact" class="pt-32 pb-section-gap relative border-b border-white/5 bg-grid bg-grid-pattern">
+                <div class="max-w-container-max mx-auto px-margin-mobile md:px-gutter">
+                    <!-- Section Header -->
+                    <div class="text-center max-w-3xl mx-auto mb-16">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-exfluent-border bg-exfluent-surface mb-6">
+                            <span class="w-2 h-2 rounded-full bg-exfluent-lime animate-pulse"></span>
+                            <span class="font-mono-data text-mono-data text-on-surface-variant uppercase tracking-widest">Queries & Support</span>
+                        </div>
+                        <h1 class="font-h1 text-h1-mobile md:text-[84px] mb-8 tracking-tighter leading-[0.95] text-white/80 backdrop-blur-sm bg-white/5 px-8 py-4 rounded-3xl border border-white/10 shadow-[inset_0_2px_4px_rgba(255,255,255,0.3),0_10px_20px_rgba(0,0,0,0.5),0_-2px_4px_rgba(0,0,0,0.3)] inline-block">
+                            Get in <span class="text-exfluent-lime">Touch</span></h1>
+                        <p class="font-sub-headline text-sub-headline text-on-surface-variant">Have questions about licensing, onboarding, or custom pricing plans? Reach out to us directly.</p>
+                    </div>
+
+                    <!-- Single Premium Email Centerpiece Card -->
+                    <div class="max-w-[650px] mx-auto text-center">
+                        <div class="glass-card rounded-[32px] p-12 relative overflow-hidden group border border-white/20 shadow-[0_30px_70px_rgba(170,255,0,0.05),_inset_0_1px_1px_rgba(255,255,255,0.2)]">
+                            <!-- Glowing background elements -->
+                            <div class="absolute -top-20 -left-20 w-44 h-44 bg-exfluent-lime/10 rounded-full blur-3xl pointer-events-none group-hover:bg-exfluent-lime/15 transition-all duration-500"></div>
+                            <div class="absolute -bottom-20 -right-20 w-44 h-44 bg-exfluent-purple/10 rounded-full blur-3xl pointer-events-none group-hover:bg-exfluent-purple/15 transition-all duration-500"></div>
+                            
+                            <!-- Mail Icon -->
+                            <div class="mx-auto w-16 h-16 rounded-2xl bg-exfluent-lime/10 border border-exfluent-lime/20 flex items-center justify-center text-exfluent-lime mb-8 group-hover:scale-110 transition-transform duration-300 shadow-[0_0_15px_rgba(170,255,0,0.15)]">
+                                <span class="material-symbols-outlined text-3xl">mail</span>
+                            </div>
+                            
+                            <!-- Email Title & Action -->
+                            <h3 class="font-h2 text-2xl text-white font-bold mb-2">Direct Contact</h3>
+                            <p class="text-on-surface-variant text-sm mb-6 max-w-sm mx-auto">Our support team replies to all inquiries within 24 hours.</p>
+                            
+                            <a href="mailto:info@exfluent.site" 
+                               class="font-mono-data text-2xl md:text-3xl text-exfluent-lime font-black tracking-tight hover:underline flex items-center justify-center gap-3 w-fit mx-auto select-all break-all shadow-[0_0_20px_rgba(170,255,0,0.05)] bg-black/40 border border-white/10 px-6 py-4 rounded-2xl hover:border-exfluent-lime/40 transition-colors duration-300">
+                               info@exfluent.site
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
             <!-- 7. Main Footer -->
             <footer class="bg-background border-t border-surface-container-highest">
                 <div
@@ -2324,7 +2441,7 @@
                                         href="#faq">FAQ</a></li>
                                 <li class=""><a
                                         class="font-body text-on-surface-variant hover:text-primary-fixed transition-colors duration-200"
-                                        href="#faq">Contact</a></li>
+                                        href="#contact">Contact</a></li>
                             </ul>
                         </div>
                         <div class="flex flex-col gap-6">
